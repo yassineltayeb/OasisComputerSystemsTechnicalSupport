@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&display=swap');
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.boxed-item {
+  background-color: white;
+  box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(212, 212, 212);
+  border-radius: 8px;
+}
+
