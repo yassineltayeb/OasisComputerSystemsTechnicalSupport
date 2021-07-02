@@ -34,6 +34,12 @@ namespace Oasis.TechnicalSupport.Web
                options.UseSqlServer(Configuration.GetConnectionString("DefaultDbConnection"))
            );
 
+            services.AddCors(options => options.AddPolicy("DevCorsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddNewtonsoftJson(opt =>
@@ -114,12 +120,7 @@ namespace Oasis.TechnicalSupport.Web
 
             app.UseRouting();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller}/{action=Index}/{id?}");
-            //});
+            app.UseCors("DevCorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
