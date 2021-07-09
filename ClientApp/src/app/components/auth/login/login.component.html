@@ -4,15 +4,46 @@
           <div class="brand">
               <img src="assets/oasis-logo.png" alt="Oasis Logo">
               <div class="brand-text">
-                  <span>Oasis</span><br>
-                  <span>Computer Systems</span><br>
+                  <span>Oasis Computer Systems</span><br>
                   <span class="slogan">Shaping the future together...</span>
               </div>
           </div>
       </div>
       <div class="login-card-right col-md-6">
           <div class="login-card-right-body">
+            <form>
+              <div class="system-title-wrapper">
+                <h3 class="system-title">Ticket Management Service</h3>
+              </div>
+              <div class="system-title-wrapper">
+                <h3 class="system-title">Sign In</h3>
+              </div>
+              <br/>
 
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Please input your username!">
+                  <nz-input-group nzPrefixIcon="user">
+                    <input name="username" [(ngModel)]="user.username" type="text" nz-input placeholder="Username" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Please input your Password!">
+                  <nz-input-group nzPrefixIcon="lock">
+                    <input name="password" [(ngModel)]="user.password" type="password" nz-input placeholder="Password" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+
+              <div nz-row class="login-form-margin">
+                <div nz-col [nzSpan]="12">
+                  <label nz-checkbox>
+                    <span>Remember me</span>
+                  </label>
+                </div>
+              </div>
+              <button nz-button class="login-form-button login-form-margin" nzType="primary" (click)="Login()"><em class="icon1" nz-icon nzType="login"></em>Login</button>
+            </form>
           </div>
       </div>
   </div>
