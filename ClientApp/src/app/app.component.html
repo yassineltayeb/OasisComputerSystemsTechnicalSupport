@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+<div *ngIf="!isLoggedIn">
+  <router-outlet></router-outlet>
+</div>
+
+<div *ngIf="isLoggedIn" class="grid-container" [ngClass]="isOnMidScreen ? 'fill-grid-container' : 'grid-container'">
+  <div tourAnchor="Step-A-Header" class="header">
+     <app-header></app-header>
+  </div>
+  <div *ngIf="!isOnMidScreen" tourAnchor="Step-B-Sidebar" class="sidebar">
+     <app-sidebar></app-sidebar>
+  </div>
+  <div class="contents">
+     <div class="outlet">
+        <router-outlet></router-outlet>
+     </div>
+     <app-footer></app-footer>
+  </div>
+</div>

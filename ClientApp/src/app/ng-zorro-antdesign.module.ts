@@ -8,7 +8,7 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 // Import what you need. RECOMMENDED. ✔️
-import { AccountBookFill, AlertFill, AlertOutline, UserOutline, LockOutline, LoginOutline } from '@ant-design/icons-angular/icons';
+import { AccountBookFill, AlertFill, AlertOutline, UserOutline, LockOutline, LoginOutline, HomeOutline, FormOutline } from '@ant-design/icons-angular/icons';
 
 const icons: IconDefinition[] =
   [
@@ -17,7 +17,9 @@ const icons: IconDefinition[] =
     AlertFill,
     UserOutline,
     LockOutline,
-    LoginOutline
+    LoginOutline,
+    HomeOutline,
+    FormOutline
   ];
 
 @NgModule({

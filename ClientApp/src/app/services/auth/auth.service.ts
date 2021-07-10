@@ -42,6 +42,23 @@ export class AuthService {
   setIsLoggedIn(isLoggedIn: boolean): void {
     this.isLoggedIn.next(isLoggedIn);
   }
+
+  getIsLoggedIn(): BehaviorSubject<boolean> {
+    return this.isLoggedIn;
+  }
+
+  getDecodedToken(): any {
+    const token = localStorage.getItem('token');
+    return this.jwtHelper.decodeToken(token);
+  }
+
+  getCurrentUser(): string {
+    if (this.isLoggedIn) {
+      const token = localStorage.getItem('token');
+      return this.jwtHelper.decodeToken(token).unique_name;
+    }
+  }
+
   private tokenAvailable(): boolean {
     return !!localStorage.getItem('token');
   }

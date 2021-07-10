@@ -7,12 +7,18 @@ import { DashboardComponent } from './components/dashboard/dashboard/dashboard.c
 import { LoginComponent } from './components/auth/login/login.component';
 import NgZorroAntdesignModule from './ng-zorro-antdesign.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/shared/header/header.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
+import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeaderComponent,
+    FooterComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

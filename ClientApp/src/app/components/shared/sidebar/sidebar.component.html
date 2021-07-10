@@ -1,0 +1,45 @@
+<div class="side-nav">
+  <nav class="nav-menu">
+     <ul class="nav-menu-icons-col">
+        <li routerLinkActive='active-link'>
+           <i tourAnchor="Step-B-01-DashboardLink" routerLink='/dashboard' routerLinkActive='active-link-icon' class="nav-icon" nz-icon nzType="home" nzTheme="outline"></i>
+        </li>
+
+        <li>
+           <i tourAnchor="Step-B-02-TicketsLink" routerLink='/tickets' routerLinkActive='active-link-icon' class="nav-icon" nz-icon nzType="form" nzTheme="outline"></i>
+        </li>
+
+        <li style="position:absolute; top:90%;">
+           <i class="nav-icon" nz-icon nzType="user" nzTheme="outline"></i>
+        </li>
+     </ul>
+
+     <ul>
+        <li>
+           <a href="javascript:void(0)" routerLink='/dashboard' routerLinkActive='active-link'>
+              <span class="nav-text">
+                 Dashboard
+              </span>
+           </a>
+        </li>
+
+        <li>
+           <a href="javascript:void(0)" routerLink='/tickets' routerLinkActive='active-link'>
+              <span class="nav-text">
+                 Tickets
+              </span>
+           </a>
+        </li>
+
+        <li style="position:absolute; top:90%;">
+           <a routerLink="/profile" href="javascript:void(0)">
+              <span class="nav-username">
+                 {{currentUserName}}
+              </span>
+           </a>
+        </li >
+     </ul>
+
+  </nav>
+
+</div>

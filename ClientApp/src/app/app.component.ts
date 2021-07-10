@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { UserLogin } from './models/UserLogin';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
 
 @Component({
@@ -7,20 +6,21 @@ import { AuthService } from './services/auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'ClientApp';
+export class AppComponent implements OnInit {
 
-  user: UserLogin = {
-    username: 'yassin',
-    password: '0924499169'
-  };
+  isLoggedIn;
 
   constructor(private authService: AuthService) {
-    this.login();
+
   }
 
-  // tslint:disable-next-line:typedef
-  login() {
-    // this.authService.login(this.user).subscribe(resonse => console.log(resonse));
+  ngOnInit(): void {
+    // Check if user is logged in using the JWT
+    this.getAuthenticationState();
   }
+
+  getAuthenticationState(): void {
+    this.authService.getIsLoggedIn().subscribe(value => (this.isLoggedIn = value));
+  }
+
 }
