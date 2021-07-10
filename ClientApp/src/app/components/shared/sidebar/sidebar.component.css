@@ -1,130 +1,120 @@
-.nav-menu
-{
-   padding-top: 60px;
-   background-color: rgb(255, 255, 255);
-   top: 0%;
-   left: 0;
-   bottom: 0;
-   height: 101vh;
-   width: 60px;
-   overflow: hidden;
-   transition: width 0.1s linear;
-   -webkit-transform: translateZ(0) scale(1,1);
-   display: grid;
-   grid-template-columns: 60px 250px;
+.nav-menu {
+  padding-top: 60px;
+  background-color: rgb(255, 255, 255);
+  top: 0%;
+  left: 0;
+  bottom: 0;
+  height: 101vh;
+  width: 60px;
+  overflow: hidden;
+  transition: width 0.1s linear;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  display: grid;
+  grid-template-columns: 60px 250px;
 }
 
-.nav-menu:hover, nav.nav-menu.expanded
-{
-   width: 250px;
-   overflow: visible;
-   border-right: 1px solid rgb(230, 230, 230);
+.nav-menu:hover,
+nav.nav-menu.expanded {
+  width: 250px;
+  overflow: visible;
+  border-right: 1px solid rgb(230, 230, 230);
 }
 
 .nav-menu-icons-col {
-   background-color:rgb(35, 134, 221);
+  background-color: rgb(35, 134, 221);
 }
 
-.nav-menu > ul
-{
-   margin: 7px 0;
+.nav-menu > ul {
+  margin: 7px 0;
 }
 
-.nav-menu li
-{
-   position: relative;
-   display: block;
-   width: 250px;
-   height: 50px;
-   margin-bottom: 0.5em;
+.nav-menu li {
+  position: relative;
+  display: block;
+  width: 250px;
+  height: 50px;
+  margin-bottom: 0.5em;
 }
 
-.nav-menu li a
-{
-   position: relative;
-   display: table;
-   border-collapse: collapse;
-   border-spacing: 0;
-   color: gray;
-   text-decoration: none;
-   -webkit-transform: translateZ(0) scale(1,1);
-   transition: all .1s linear;
+.nav-menu li a {
+  position: relative;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: gray;
+  text-decoration: none;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  transition: all 0.1s linear;
 }
 
-.nav-menu .nav-icon
-{
-   position: relative;
-   display: table-cell;
-   width: 60px;
-   height: 65px;
-   text-align: center;
-   vertical-align: middle;
-   font-size: 22px;
-   color: white;
+.nav-menu .nav-icon {
+  position: relative;
+  display: table-cell;
+  width: 60px;
+  height: 65px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 22px;
+  color: white;
 }
 
-.nav-menu .nav-text
-{
-
-   position: relative;
-   display: table-cell;
-   vertical-align: middle;
-   width: 190px;
-   text-transform: capitalize;
-   color: rgb(110, 110, 110);
-   letter-spacing: 0.1em;
-   font-size: 16px;
-   padding-left: 0.1em;
-   text-align: left;
-   padding: 20px 15px;
+.nav-menu .nav-text {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  width: 190px;
+  text-transform: capitalize;
+  color: rgb(110, 110, 110);
+  letter-spacing: 0.1em;
+  font-size: 16px;
+  padding-left: 0.1em;
+  text-align: left;
+  padding: 20px 15px;
 }
 
 .nav-user-section {
-   position: absolute;
-   top:90%;
+  position: absolute;
+  top: 90%;
 }
 
 .nav-username {
-   position: relative;
-   display: table-cell;
-   vertical-align: middle;
-   width: 190px;
-   font-family: tahoma;
-   text-transform: capitalize;
-   color: rgb(105, 105, 105);
-   letter-spacing: 0.2em;
-   font-size: 14px;
-   padding-left: 0.1em;
-   text-align: left;
-   padding: 20px 10px;
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  width: 190px;
+  font-family: tahoma;
+  text-transform: capitalize;
+  color: rgb(105, 105, 105);
+  letter-spacing: 0.2em;
+  font-size: 14px;
+  padding-left: 0.1em;
+  text-align: left;
+  padding: 20px 10px;
 }
 
-.no-touch .scrollable.hover
-{
-   overflow-y: hidden;
+.no-touch .scrollable.hover {
+  overflow-y: hidden;
 }
 
-.no-touch .scrollable.hover:hover
-{
-   overflow-y: auto;
-   overflow: visible;
+.no-touch .scrollable.hover:hover {
+  overflow-y: auto;
+  overflow: visible;
 }
 
-a:hover, a:focus
-{
-   text-decoration: none;
+a:hover,
+a:focus {
+  text-decoration: none;
 }
 
-nav
-{
-   user-select: none;
+nav {
+  user-select: none;
 }
 
-nav ul, nav li
-{
-   outline: 0;
-   margin: 0;
-   padding: 0;
+nav ul,
+nav li {
+  outline: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-username:hover,
@@ -138,16 +128,15 @@ nav.nav-menu li.active a,
 .dropdown-menu .active a:hover,
 .dropdown-menu .active a:focus,
 .no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
-.dashboard-page nav.dashboard-menu ul li.active a
-{
-   color: rgb(255, 255, 255);
-   background: rgb(35, 134, 221);
+.dashboard-page nav.dashboard-menu ul li.active a {
+  color: rgb(255, 255, 255);
+  background: rgb(35, 134, 221);
 }
 
 .active-link {
-   font-weight: 600;
+  font-weight: 600;
 }
 
 .active-link-icon {
-   background-color: rgb(42, 116, 180);
+  background-color: rgb(42, 116, 180);
 }

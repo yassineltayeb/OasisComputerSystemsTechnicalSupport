@@ -2,3 +2,86 @@
   position: fixed;
   width: 100%;
 }
+
+/* scss */
+
+.header {
+  grid-column: 1 / 5;
+  z-index: 1000;
+}
+
+.sidebar {
+  grid-row: 2;
+  position: fixed;
+  z-index: 100;
+}
+
+.contents {
+  grid-column: 2 / 5;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  transition: all 0.3s ease;
+}
+
+.sidebar:hover + .contents {
+  margin-left: 190px;
+}
+
+.outlet {
+  min-height: 100vh;
+  padding: 3em;
+  padding-top: 1em;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 60px auto;
+  grid-template-rows: 70px auto;
+  height: 100%;
+}
+
+.fill-grid-container {
+  display: grid;
+  grid-template-columns: 0 auto;
+  grid-template-rows: 70px auto;
+  height: 100%;
+}
+
+.grid-container > div {
+  text-align: center;
+}
+
+.fill-grid-container > div {
+  text-align: center;
+}
+
+.step-container {
+  overflow: hidden;
+  width: 500px;
+}
+
+.step-content {
+  font-size: 15px;
+  margin-top: -10px;
+}
+
+.step-actions {
+  margin-bottom: -10px;
+}
+
+.step-btn {
+  font-size: 15px;
+  color: rgb(41, 41, 41);
+}
+
+.end-tour-btn:hover {
+  color: white;
+}
+
+@media (max-width: 572px) {
+  .outlet {
+      padding: 1em;
+  }
+}
+

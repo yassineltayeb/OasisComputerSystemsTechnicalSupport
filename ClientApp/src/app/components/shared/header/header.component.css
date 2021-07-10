@@ -1,0 +1,196 @@
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.site {
+  display: flex;
+  flex-direction: column;
+  min-height: 75vh;
+}
+
+.content {
+  flex: 1;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.header {
+  grid-column: 1/5;
+  z-index: 1000;
+}
+
+#nav {
+  height: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+}
+
+mat-toolbar {
+  border-bottom: solid 1px rgb(190, 190, 190);
+  z-index: 1000 !important;
+}
+
+.nav-container {
+  height: 100vh;
+}
+
+.nav-link {
+  font-size: 16px;
+  font-weight: 100;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  font-weight: 400;
+  font-size: 17px;
+}
+
+.navbar-icon {
+  font-size: 18px;
+  margin: 0 0.5em;
+  color: #5d80f3;
+  transition: all 0.2s ease;
+  padding: 7px;
+  border: 1px solid #d3d3d3;
+  border-radius: 50%;
+}
+
+.anticon {
+  display: inline-block;
+  font-style: normal;
+  line-height: 0;
+  text-align: center;
+  text-transform: none;
+  vertical-align: -0.125em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.logo {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.logo-img {
+  height: 45px;
+  margin: 0 10px 10px;
+  vertical-align: middle;
+  border-style: none;
+}
+
+.logo-img img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+.brand {
+  font-size: 150%;
+}
+
+.brand small {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+div {
+  overflow: inherit;
+}
+
+a {
+  text-decoration: none;
+  font-size: 110%;
+  white-space: normal;
+}
+
+a:hover {
+  color: white;
+}
+
+button {
+  font-size: 110%;
+  min-width: min-content;
+}
+
+.mid-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-sidenav-content {
+  font-size: 200%;
+  text-align: center;
+}
+
+.nav-icon {
+  font-size: 20px;
+}
+
+.edge-spacer {
+  padding: 0 0.86em;
+}
+
+.mat-toolbar {
+  position: relative;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.4);
+  border: none;
+}
+
+.nav-menu-item {
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.nav-menu-item:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.nav-menu-icon {
+  display: inline-flex;
+  vertical-align: top;
+  font-size: 25px;
+  margin-right: 5px;
+  line-height: 24px;
+  color: rgb(70, 70, 70);
+}
+
+@media screen and (max-width: 600px) {
+  .brand {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .brand small {
+    font-weight: 200;
+  }
+
+  .logo {
+    width: 35px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .logo {
+    margin-left: 10px;
+  }
+
+  .edge-spacer {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .brand small {
+    display: none;
+  }
+}

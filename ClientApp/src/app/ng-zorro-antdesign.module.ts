@@ -4,22 +4,26 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 // Import what you need. RECOMMENDED. ✔️
-import { AccountBookFill, AlertFill, AlertOutline, UserOutline, LockOutline, LoginOutline, HomeOutline, FormOutline } from '@ant-design/icons-angular/icons';
+import {
+  AccountBookFill, AlertFill, AlertOutline, UserOutline,
+  LockOutline, LoginOutline, HomeOutline, FormOutline,
+  BellOutline, SearchOutline, QuestionOutline, BarChartOutline,
+  RightOutline, ReconciliationOutline, EditOutline, LogoutOutline,
+  LoadingOutline
+} from '@ant-design/icons-angular/icons';
 
 const icons: IconDefinition[] =
   [
-    AccountBookFill,
-    AlertOutline,
-    AlertFill,
-    UserOutline,
-    LockOutline,
-    LoginOutline,
-    HomeOutline,
-    FormOutline
+    AccountBookFill, AlertOutline, AlertFill, UserOutline,
+    LockOutline, LoginOutline, HomeOutline, FormOutline,
+    BellOutline, SearchOutline, QuestionOutline, BarChartOutline,
+    RightOutline, ReconciliationOutline, EditOutline, LogoutOutline,
+    LoadingOutline
   ];
 
 @NgModule({
@@ -29,7 +33,8 @@ const icons: IconDefinition[] =
     NzIconModule,
     NzInputModule,
     NzButtonModule,
-    NzCheckboxModule
+    NzCheckboxModule,
+    NzDropDownModule
   ],
   imports: [
     CommonModule,

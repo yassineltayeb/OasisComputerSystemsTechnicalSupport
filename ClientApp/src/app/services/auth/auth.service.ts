@@ -63,4 +63,13 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
+  logout(): void {
+    // Clear JWT from localstorage
+    localStorage.removeItem('token');
+    // Update logged in status
+    this.setIsLoggedIn(false);
+    // Navigate user back to login page
+    this.router.navigate(['/login']);
+ }
+
 }

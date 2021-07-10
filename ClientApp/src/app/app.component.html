@@ -3,10 +3,10 @@
 </div>
 
 <div *ngIf="isLoggedIn" class="grid-container" [ngClass]="isOnMidScreen ? 'fill-grid-container' : 'grid-container'">
-  <div tourAnchor="Step-A-Header" class="header">
+  <div class="header">
      <app-header></app-header>
   </div>
-  <div *ngIf="!isOnMidScreen" tourAnchor="Step-B-Sidebar" class="sidebar">
+  <div *ngIf="!isOnMidScreen" class="sidebar">
      <app-sidebar></app-sidebar>
   </div>
   <div class="contents">

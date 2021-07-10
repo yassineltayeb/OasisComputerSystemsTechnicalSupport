@@ -1,1 +1,118 @@
-<p>header works!</p>
+<nav id="nav">
+
+  <img class="logo-img" src="./assets/OasisFavicon.ico" routerLink="/" alt="Oasis Logo">
+
+  <a *ngIf="isOnMidScreen" nz-dropdown nzTrigger="click" [nzDropdownMenu]="notificationsMenu" href="javascript:void(0)" class="nav-notif-btn">
+      <i class="navbar-icon" nz-icon nzType="bell" nzTheme="outline"></i>
+  </a>
+
+  <a *ngIf="isOnMidScreen" nz-dropdown nzTrigger="click" [nzDropdownMenu]="accountMenu" href="javascript:void(0)">
+      <i class="navbar-icon" nz-icon nzType="user" nzTheme="outline"></i>
+  </a>
+
+  <!-- <input type="checkbox" (click)="toggleNavbar()" id="check"> -->
+
+  <ul [ngClass]="navbarOpen ? 'nav-list full-sidebar' : 'nav-list hidden-sidebar'">
+
+      <!-- DESKTOP NAV BUTTONS -->
+      <!-- <li *ngIf="!isOnMidScreen" class="nav-list-item nav-search">
+          <input (input)="onSearchInputChange($event.target?.value)" [(ngModel)]="searchInputValue" nz-input [nzAutocomplete]="auto" type="search" placeholder="Search Ticket...">
+
+          <i (click)="onSearch()" tourAnchor="Step-A-04-TicketSearch" class="navbar-icon" nz-icon nzType="search" nzTheme="outline"></i>
+
+          <nz-autocomplete nzBackfill #auto>
+              <nz-auto-option *ngFor="let result of searchResults" [nzValue]="result.subject">
+                  {{result.subject}}
+              </nz-auto-option>
+
+              <nz-auto-option (click)="$event.stopPropagation()" *ngIf="isSearchResultsEmpty">Not Found</nz-auto-option>
+          </nz-autocomplete>
+      </li> -->
+<!--
+      <li *ngIf="!isOnMidScreen" (click)="startAppTour()" nz-tooltip nzTooltipTitle="Start app tour" nzTooltipPlacement="bottom" class="nav-list-item">
+          <i class="navbar-icon" tourAnchor="Step-A-03-TourRestart" nz-icon nzType="question" nzTheme="outline"></i>
+      </li> -->
+
+      <!-- <li *ngIf="!isOnMidScreen" nz-dropdown nzTrigger="click" [nzDropdownMenu]="notificationsMenu" class="nav-list-item">
+          <nz-badge [nzCount]="notificationsNumber" [nzStyle]="{ backgroundColor: '#ff5c5c' }">
+              <i (click)="markNotificationsRead()" class="navbar-icon" tourAnchor="Step-A-02-NotificationsMenu" nz-icon nzType="bell" nzTheme="outline"></i>
+          </nz-badge>
+      </li> -->
+
+      <li *ngIf="!isOnMidScreen" nz-dropdown nzTrigger="click" [nzDropdownMenu]="accountMenu" class="nav-list-item">
+          <em class="navbar-icon" nz-icon nzType="user" nzTheme="outline"></em>
+      </li>
+
+      <!-- MOBILE SIDE NAV -->
+      <!-- <div *ngIf="isOnMidScreen" class="mobile-menus">
+
+          <div class="m-sidenav-username">
+              <h4>Welcome, {{currentUserName}}</h4>
+          </div>
+
+          <div class="m-sidenav-circle"></div>
+
+          <div class="m-sidenav-avatar">
+              <i class="nav-mobile-user-icon" nz-icon nzType="user" nzTheme="outline"></i>
+              <h4>{{currentClientName}}</h4>
+          </div>
+
+          <div class="m-sidenav-links">
+              <li class="m-sidenav-link-item"><a href="javascript:void(0)">
+                  <div nz-col nzSpan="4">
+                      <i nz-icon nzType="bar-chart" nzTheme="outline"></i>
+                  </div>
+
+                  <h4 (click)="toggleNavbar()" routerLink="/dashboard" nz-col nzSpan="14">Dashboard</h4>
+
+                  <div nz-col nzSpan="6">
+                      <i nz-icon nzType="right" nzTheme="outline"></i>
+                  </div>
+              </a>
+              </li>
+
+              <li class="m-sidenav-link-item"><a href="javascript:void(0)">
+                  <div nz-col nzSpan="4">
+                      <i nz-icon nzType="reconciliation" nzTheme="outline"></i>
+                  </div>
+
+                  <h4 (click)="toggleNavbar()" routerLink="/tickets" nz-col nzSpan="14">Tickets</h4>
+
+                  <div nz-col nzSpan="6">
+                      <i nz-icon nzType="right" nzTheme="outline"></i>
+                  </div>
+              </a>
+              </li>
+          </div>
+      </div> -->
+  </ul>
+
+</nav>
+
+<nz-dropdown-menu #accountMenu="nzDropdownMenu">
+  <ul nz-menu>
+      <li style="font-size: 14px;" class="nav-menu-header" nz-menu-item>Welcome, <b>{{currentUserName}}</b></li>
+      <li nz-menu-divider></li>
+      <li nz-menu-item routerLink="/profile" class="nav-menu-item"><i nz-icon nzType="edit" nzTheme="outline"></i>My tickets</li>
+      <li nz-menu-item routerLink="/password/edit" class="nav-menu-item"><i nz-icon nzType="user" nzTheme="outline"></i>Change password</li>
+      <li (click)="logout()" nz-menu-item class="nav-menu-item"><i nz-icon nzType="logout" nzTheme="outline"></i>Logout</li>
+  </ul>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #notificationsMenu="nzDropdownMenu">
+  <!-- <ul nz-menu>
+      <li nz-menu-item class="nav-menu-header">Notifications</li>
+      <li nz-menu-divider></li>
+      <li  *ngIf="isLoadingNotificaitons" class="notifications-loader"><i nz-icon nzType="loading" class="loading-icon"></i>Loading your notifications...</li>
+      <div *ngIf="hasNotifications && !isLoadingNotificaitons" class="notifications-list">
+          <li (click)="navigateToTicketDetails(note)" *ngFor="let note of unreadTicketNotes" nz-menu-item class="nav-menu-item notification-item">
+              <p class="notification-header">
+                  <b>Ticket No. #{{note.ticketNo}}#</b>
+                  <span>{{note.savedDate | date}}</span>
+              </p>
+              <p>{{note.notes}}</p>
+          </li>
+      </div>
+      <li *ngIf="!hasNotifications && !isLoadingNotificaitons" nz-menu-item class="nav-menu-item">No Notifications</li>
+  </ul> -->
+</nz-dropdown-menu>
