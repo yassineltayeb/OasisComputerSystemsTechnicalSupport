@@ -18,7 +18,7 @@
 
 .contents {
   grid-column: 2 / 5;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   -ms-overflow-style: none;
   scrollbar-width: none;
   transition: all 0.3s ease;
@@ -31,7 +31,7 @@
 .outlet {
   min-height: 100vh;
   padding: 3em;
-  padding-top: 1em;
+  padding-top: 6em;
 }
 
 .grid-container {
