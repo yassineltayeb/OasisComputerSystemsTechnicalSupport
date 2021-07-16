@@ -64,7 +64,7 @@ namespace Oasis.TechnicalSupport.Web.Data
 
             var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, staffProfile.StaffID.ToString()),
-                new Claim(ClaimTypes.Name, username)
+                new Claim(ClaimTypes.Name, staffProfile.FullNameEn),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Secret").Value));
