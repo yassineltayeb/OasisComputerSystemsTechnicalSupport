@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { }
 
   Login(): void {
-    console.log(this.user);
     this.authService.login(this.user).subscribe(next => {
       // this.alertify.success('Logged successfully');
       this.authService.setIsLoggedIn(true);

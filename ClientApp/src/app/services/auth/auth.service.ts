@@ -55,7 +55,6 @@ export class AuthService {
   getCurrentUser(): string {
     if (this.isLoggedIn) {
       const token = localStorage.getItem('token');
-      console.log('decodeToken', this.jwtHelper.decodeToken(token));
       return this.jwtHelper.decodeToken(token).unique_name;
     }
   }

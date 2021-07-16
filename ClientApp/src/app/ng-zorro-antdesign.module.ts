@@ -7,6 +7,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 // Import what you need. RECOMMENDED. ✔️
 import {
@@ -34,7 +35,8 @@ const icons: IconDefinition[] =
     NzInputModule,
     NzButtonModule,
     NzCheckboxModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzTableModule
   ],
   imports: [
     CommonModule,
