@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
+import { ChartsModule } from 'ng2-charts';
 
 // tslint:disable-next-line:typedef
 export function tokenGetter() {
@@ -35,10 +36,15 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     AppRoutingModule,
     NgZorroAntdesignModule,
+    ChartsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        allowedDomains: ['https://localhost:44304/api/', 'http://localhost:4200/api/']
+        allowedDomains: [
+          'https://localhost:44304/api/',
+          'http://localhost:4200/api/',
+          'https://localhost:5000/'
+        ]
       },
     }),
   ],
