@@ -15,4 +15,9 @@ export class TicketService {
   getActiveTickets() {
     return this.http.get(this.apiUrl + 'activetickets');
   }
+
+  // tslint:disable-next-line:typedef
+  getActiveTicketsStatus() {
+    return this.http.get(this.apiUrl + 'activeticketsstatus');
+  }
 }

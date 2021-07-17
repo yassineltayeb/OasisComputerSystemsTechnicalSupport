@@ -48,3 +48,29 @@
     </div>
   </li>
 </ul>
+
+<div class="row">
+  <div class="col-md-6">
+    <nz-table #activeTicketsTable [nzData]="activeTickets" [nzScroll]="{ y: '400px' }">
+      <thead>
+        <tr>
+          <th id="clientID">Client ID</th>
+          <th id="fullName">Client Name</th>
+          <th id="noOfTickets">No. Of Tickets</th>
+          <th id="accountManager">Account Manager</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of activeTicketsTable.data">
+          <td>{{ ticket.clientID }}</td>
+          <td>{{ ticket.fullName }}</td>
+          <td>{{ ticket.noOfTickets }}</td>
+          <td>{{ ticket.accountManager }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="col-md-6">
+    <p>2</p>
+  </div>
+</div>

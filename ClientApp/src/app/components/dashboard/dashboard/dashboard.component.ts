@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActiveTickets } from 'src/app/models/ActiveTickets';
+import { ActiveTicketsStatus } from 'src/app/models/ActiveTicketsStatus';
 import { TicketService } from 'src/app/services/ticket/ticket.service';
 
 @Component({
@@ -10,13 +11,17 @@ import { TicketService } from 'src/app/services/ticket/ticket.service';
 export class DashboardComponent implements OnInit {
 
   activeTickets: ActiveTickets[] = [];
+  activeTicketsStatus: ActiveTicketsStatus[] = [];
 
   constructor(private ticketService: TicketService) { }
 
   ngOnInit(): void {
     this.ticketService.getActiveTickets().subscribe((result: ActiveTickets[]) => {
       this.activeTickets = result;
-      console.log(this.activeTickets);
+    });
+
+    this.ticketService.getActiveTicketsStatus().subscribe((result: ActiveTicketsStatus[]) => {
+      this.activeTicketsStatus = result;
     });
   }
 

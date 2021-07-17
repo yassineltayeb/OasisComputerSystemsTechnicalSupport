@@ -44,6 +44,14 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(activeTickets);
         }
 
+        [HttpGet("activeticketsstatus")]
+        public async Task<IActionResult> GetActiveTicketsStatus()
+        {
+            var activeTickets = await support_TicketsRepository.GetActiveTicketsStatus();
+
+            return Ok(activeTickets);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetTickets(Support_TicketsParameters support_TicketsParameters)
         {

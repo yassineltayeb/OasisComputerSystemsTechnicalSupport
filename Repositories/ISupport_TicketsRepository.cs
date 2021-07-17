@@ -11,6 +11,7 @@ namespace Oasis.TechnicalSupport.Web.Repositories
         Task<Support_TicketsToList> GetTicketById(int id);
         Task<List<Support_TicketsToList>> GetTickets(Support_TicketsParameters support_TicketsParameters);
         Task<List<Support_TicketsActiveTickets>> GetActiveTickets();
+        Task<List<Support_TicketsActiveTicketsStatus>> GetActiveTicketsStatus();
         IEnumerable<KeyValuePairs> GetTicketPrioritiesList();
         IEnumerable<KeyValuePairs> GetTicketTypesList();
         IEnumerable<KeyValuePairs> GetTicketStatusList();

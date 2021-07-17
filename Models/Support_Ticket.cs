@@ -110,6 +110,12 @@ namespace Oasis.TechnicalSupport.Web.Models
         public string AccountManager { get; set; }
     }
 
+    public class Support_TicketsActiveTicketsStatus
+    {
+        public string Status { get; set; }
+        public int NoOfTickets { get; set; }
+    }
+
     public class Support_TicketsParameters
     {
         public int? ClientId { get; set; }
