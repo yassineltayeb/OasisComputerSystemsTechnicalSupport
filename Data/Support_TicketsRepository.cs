@@ -110,6 +110,22 @@ namespace Oasis.TechnicalSupport.Web.Data
                 .ToListAsync();
         }
 
+
+        // Get Tickets Status
+        public Task<List<Support_TicketsActiveTicketsStatus>> GetTicketsStatus()
+        {
+
+            return _unitOfWork.context.VWSupport_Tickets
+                  .GroupBy(s => new { s.Status })
+                  .Select(s => new Support_TicketsActiveTicketsStatus
+                  {
+                      Status = s.Key.Status,
+                      NoOfTickets = s.Count(),
+                  })
+                  .OrderByDescending(s => s.NoOfTickets)
+                  .ToListAsync();
+        }
+
         // Get Active Tickets Status
         public Task<List<Support_TicketsActiveTicketsStatus>> GetActiveTicketsStatus()
         {
