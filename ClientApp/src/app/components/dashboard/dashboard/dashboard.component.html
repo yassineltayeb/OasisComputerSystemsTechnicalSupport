@@ -1,57 +1,59 @@
-<ul class="card-list">
-  <li class="card">
-    <div class="card__flipper">
-      <div class="card__front">
-        <p class="card__name"><span>Waiting</span></p>
-        <p class="card__num">9</p>
+<div>
+  <ul class="card-list">
+    <li class="card">
+      <div class="card__flipper">
+        <div class="card__front">
+          <p class="card__name"><span>Waiting</span></p>
+          <p class="card__num">9</p>
+        </div>
       </div>
-    </div>
-  </li>
-  <li class="card">
-    <div class="card__flipper">
-      <div class="card__front">
-        <p class="card__name"><span>Reopened</span></p>
-        <p class="card__num">12</p>
+    </li>
+    <li class="card">
+      <div class="card__flipper">
+        <div class="card__front">
+          <p class="card__name"><span>Reopened</span></p>
+          <p class="card__num">12</p>
+        </div>
       </div>
-    </div>
-  </li>
-  <li class="card">
-    <div class="card__flipper">
-      <div class="card__front">
-        <p class="card__name"><span>Work In Progress</span></p>
-        <p class="card__num">7</p>
+    </li>
+    <li class="card">
+      <div class="card__flipper">
+        <div class="card__front">
+          <p class="card__name"><span>Work In Progress</span></p>
+          <p class="card__num">7</p>
+        </div>
       </div>
-    </div>
-  </li>
-  <li class="card">
-    <div class="card__flipper">
-      <div class="card__front">
-        <p class="card__name"><span>Pending Delivery</span></p>
-        <p class="card__num">18</p>
+    </li>
+    <li class="card">
+      <div class="card__flipper">
+        <div class="card__front">
+          <p class="card__name"><span>Pending Delivery</span></p>
+          <p class="card__num">18</p>
+        </div>
       </div>
-    </div>
-  </li>
-  <li class="card">
-    <div class="card__flipper">
-      <div class="card__front">
-        <p class="card__name"><span>Pending On Customer</span></p>
-        <p class="card__num">12</p>
+    </li>
+    <li class="card">
+      <div class="card__flipper">
+        <div class="card__front">
+          <p class="card__name"><span>Pending On Customer</span></p>
+          <p class="card__num">12</p>
+        </div>
       </div>
-    </div>
-  </li>
-  <li class="card">
-    <div class="card__flipper">
-      <div class="card__front">
-        <p class="card__name"><span>Resolved</span></p>
-        <p class="card__num">9</p>
+    </li>
+    <li class="card">
+      <div class="card__flipper">
+        <div class="card__front">
+          <p class="card__name"><span>Resolved</span></p>
+          <p class="card__num">9</p>
+        </div>
       </div>
-    </div>
-  </li>
-</ul>
+    </li>
+  </ul>
+</div>
 
 <div class="row">
   <div class="col-md-6">
-    <nz-table #activeTicketsTable [nzData]="activeTickets" [nzScroll]="{ y: '400px' }">
+    <nz-table #activeTicketsTable nzOuterBordered [nzData]="activeTickets" nzTitle="Active Tickets" [nzScroll]="{ y: '400px' }">
       <thead>
         <tr>
           <th id="clientID">Client ID</th>
@@ -71,6 +73,23 @@
     </nz-table>
   </div>
   <div class="col-md-6">
-    <p>2</p>
+    <nz-table #activeTicketsTable nzOuterBordered [nzData]="activeTickets" nzTitle="Active Tickets" [nzScroll]="{ y: '400px' }">
+      <thead>
+        <tr>
+          <th id="clientID">Client ID</th>
+          <th id="fullName">Client Name</th>
+          <th id="noOfTickets">No. Of Tickets</th>
+          <th id="accountManager">Account Manager</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of activeTicketsTable.data">
+          <td>{{ ticket.clientID }}</td>
+          <td>{{ ticket.fullName }}</td>
+          <td>{{ ticket.noOfTickets }}</td>
+          <td>{{ ticket.accountManager }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
   </div>
 </div>
