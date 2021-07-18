@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,18 +12,23 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  // tslint:disable-next-line:typedef
-  getActiveTickets() {
+  filter = {
+    fullName: 'City'
+  };
+
+  getTickets(): Observable<any> {
+    return this.http.get(this.apiUrl + 'ticketslist', { params: { fullName: 'city'}});
+  }
+
+  getActiveTickets(): Observable<any> {
     return this.http.get(this.apiUrl + 'activetickets');
   }
 
-  // tslint:disable-next-line:typedef
-  getTicketsStatus() {
+  getTicketsStatus(): Observable<any> {
     return this.http.get(this.apiUrl + 'ticketsstatus');
   }
 
-  // tslint:disable-next-line:typedef
-  getActiveTicketsStatus() {
+  getActiveTicketsStatus(): Observable<any> {
     return this.http.get(this.apiUrl + 'activeticketsstatus');
   }
 }

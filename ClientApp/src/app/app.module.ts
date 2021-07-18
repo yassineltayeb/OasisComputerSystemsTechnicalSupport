@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { ChartsModule } from 'ng2-charts';
+import { TicketsListComponent } from './components/tickets/tickets-list/tickets-list.component';
 
 // tslint:disable-next-line:typedef
 export function tokenGetter() {
@@ -26,7 +27,8 @@ export function tokenGetter() {
     DashboardComponent,
     HeaderComponent,
     FooterComponent,
-    SidebarComponent
+    SidebarComponent,
+    TicketsListComponent
   ],
   imports: [
     BrowserModule,

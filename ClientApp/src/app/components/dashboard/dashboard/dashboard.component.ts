@@ -42,6 +42,13 @@ export class DashboardComponent implements OnInit {
   activeTicketsStatus: ActiveTicketsStatus[] = [];
   ticketsStatus: ActiveTicketsStatus[] = [];
 
+  waitingCount = 0;
+  reopenedCount = 0;
+  workInProgressCount = 0;
+  pendingDeliveryCount = 0;
+  pendingOnCustomerCount = 0;
+  resolvedCount = 0;
+
   constructor(private ticketService: TicketService) { }
 
   ngOnInit(): void {
@@ -56,7 +63,8 @@ export class DashboardComponent implements OnInit {
     // Get Tickets Status
     this.ticketService.getTicketsStatus().subscribe((result: ActiveTicketsStatus[]) => {
       this.ticketsStatus = result;
-      console.log('thisticketsStatus', this.ticketsStatus);
+      this.setStatusCount();
+
     });
 
     // Get Active Tickets Status
@@ -70,19 +78,22 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getStatusCount(status: string): number {
-    console.log('statusSent', status);
-
-    let count = 0;
+  setStatusCount(): void {
     this.ticketsStatus.forEach((item: ActiveTicketsStatus) => {
-      console.log('status', item.status);
-
-      if (item.status === status) {
-        count = item.noOfTickets;
+      if (item.status === TicketStatus.WAITING) {
+        this.waitingCount = item.noOfTickets;
+      } else if (item.status === TicketStatus.REOPENED) {
+        this.reopenedCount = item.noOfTickets;
+      } else if (item.status === TicketStatus.WORK_IN_PROGRESS) {
+        this.workInProgressCount = item.noOfTickets;
+      } else if (item.status === TicketStatus.PENDING_DELIVERY) {
+        this.pendingDeliveryCount = item.noOfTickets;
+      } else if (item.status === TicketStatus.PENDING_ON_CUSTOMER) {
+        this.pendingOnCustomerCount = item.noOfTickets;
+      } else if (item.status === TicketStatus.RESOLVED) {
+        this.resolvedCount = item.noOfTickets;
       }
     });
-
-    return count;
   }
 
   getStatusColor(status: string): string {
