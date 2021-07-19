@@ -10,24 +10,18 @@ export class TicketService {
 
   apiUrl: string = environment.apiUrl + 'tickets/';
 
-  constructor(private http: HttpClient) { }
-
-  filter = {
-    fullName: 'City'
+  params: any = {
+    fullName: 'city',
+    pageNumber: '1',
+    pageSize: '10',
+    sortBy: 'type',
+    IsSortAscending: 'true',
   };
 
+  constructor(private http: HttpClient) { }
+
   getTickets(): Observable<any> {
-    return this.http.get(this.apiUrl + 'ticketslist',
-                              {
-                                params:
-                                {
-                                  fullName: 'city',
-                                  pageNumber: '1',
-                                  pageSize: '10',
-                                  sortBy: 'type',
-                                  IsSortAscending: 'true',
-                                }
-                                });
+    return this.http.get(this.apiUrl + 'ticketslist?' + this.toQueryString(this.params));
   }
 
   getActiveTickets(): Observable<any> {
@@ -40,5 +34,18 @@ export class TicketService {
 
   getActiveTicketsStatus(): Observable<any> {
     return this.http.get(this.apiUrl + 'activeticketsstatus');
+  }
+
+  toQueryString(obj): string {
+    const parts = [];
+
+    for (const property of Object.keys(obj)) {
+      const value = obj[property];
+      if (value !== null && value !== undefined) {
+        parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value));
+      }
+    }
+
+    return parts.join('&');
   }
 }
