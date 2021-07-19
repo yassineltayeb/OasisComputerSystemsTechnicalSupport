@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Oasis.TechnicalSupport.Web.Exceptions;
 using Oasis.TechnicalSupport.Web.Helpers;
 using Oasis.TechnicalSupport.Web.Models;
 using Oasis.TechnicalSupport.Web.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Oasis.TechnicalSupport.Web.Data
@@ -149,43 +151,46 @@ namespace Oasis.TechnicalSupport.Web.Data
         }
 
         // Get Tickets
-        public async Task<List<Support_TicketsToList>> GetTickets(Support_TicketsParameters support_TicketsParameters)
+        public async Task<PagedList<Support_TicketsToList>> GetTickets(Support_TicketsParameters support_TicketsParameters)
         {
             var tickets = _unitOfWork.context.VWSupport_Tickets
                 .OrderBy(t => t.TicketNo)
                 .AsQueryable();
 
-            // Filter By
-            if (support_TicketsParameters.ClientId.HasValue)
-                tickets = tickets.Where(s => s.ClientID == support_TicketsParameters.ClientId);
+            // Filtering
+            tickets = tickets.ApplyFiltering(support_TicketsParameters);
 
-            if (support_TicketsParameters.FullName != null)
-                tickets = tickets.Where(t => t.FullName.Contains(support_TicketsParameters.FullName));
+            // Sorting
+            var columnsMap = new Dictionary<string, Expression<Func<Support_TicketsToList, object>>>()
+            {
+                ["sNo"] = p => p.SNo,
+                ["assignedTo"] = p => p.AssignedTo,
+                ["clientID"] = p => p.ClientID,
+                ["fullName"] = p => p.FullName,
+                ["accountManager"] = p => p.AccountManager,
+                ["ticketNo"] = p => p.TicketNo,
+                ["type"] = p => p.Type,
+                ["category"] = p => p.Category,
+                ["status"] = p => p.Status,
+                ["highPriority"] = p => p.HighPriority,
+                ["priority"] = p => p.Priority,
+                ["source"] = p => p.Source,
+                ["module"] = p => p.Module,
+                ["subject"] = p => p.Subject,
+                ["problemDescription"] = p => p.ProblemDescription,
+                ["reminders"] = p => p.Reminders,
+                ["submittedBy"] = p => p.SubmittedBy,
+                ["submittedOn"] = p => p.SubmittedOn,
+                ["oasisComments"] = p => p.OasisComments,
+                ["closedBy"] = p => p.ClosedBy,
+                ["closedOn"] = p => p.ClosedOn,
+                ["approvedBy"] = p => p.ApprovedBy,
+                ["approvedOn"] = p => p.ApprovedOn
+            };
 
-            if (support_TicketsParameters.Module != null)
-                tickets = tickets.Where(t => t.Module.Contains(support_TicketsParameters.Module));
+            tickets = tickets.ApplyOrdering(support_TicketsParameters, columnsMap);
 
-            if (support_TicketsParameters.AccountManager != null)
-                tickets = tickets.Where(t => t.AccountManager.Contains(support_TicketsParameters.AccountManager));
-
-            if (support_TicketsParameters.AssignedTo != null)
-                tickets = tickets.Where(t => t.AssignedTo.Contains(support_TicketsParameters.AssignedTo));
-
-            if (support_TicketsParameters.NotApproved.HasValue)
-                if (support_TicketsParameters.NotApproved == 1)
-                    tickets = tickets.Where(t => t.ApprovedBy != null);
-
-            if (support_TicketsParameters.HighPriority.HasValue)
-                if (support_TicketsParameters.HighPriority == 1)
-                    tickets = tickets.Where(t => t.HighPriority == support_TicketsParameters.HighPriority);
-
-            if (support_TicketsParameters.Status != null)
-                tickets = tickets.Where(t => support_TicketsParameters.Status.Contains(t.Status));
-
-            if (support_TicketsParameters.Type != null)
-                tickets = tickets.Where(t => support_TicketsParameters.Type.Contains(t.Type));
-
-            return await tickets.ToListAsync();
+            return await PagedList<Support_TicketsToList>.ToPagedListAsync(tickets, support_TicketsParameters.PageNumber, support_TicketsParameters.PageSize);
         }
 
         // Get Ticket Priorities

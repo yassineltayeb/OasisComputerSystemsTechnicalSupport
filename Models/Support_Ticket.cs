@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Oasis.TechnicalSupport.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -116,7 +117,7 @@ namespace Oasis.TechnicalSupport.Web.Models
         public int NoOfTickets { get; set; }
     }
 
-    public class Support_TicketsParameters
+    public class Support_TicketsParameters : QueryStringParameters
     {
         public int? ClientId { get; set; }
         public string FullName { get; set; }

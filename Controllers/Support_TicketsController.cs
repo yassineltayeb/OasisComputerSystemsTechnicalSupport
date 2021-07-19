@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Oasis.TechnicalSupport.Web.Models;
 using Oasis.TechnicalSupport.Web.Repositories;
 using System.Threading.Tasks;
@@ -64,6 +65,18 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         public async Task<IActionResult> GetTicketsList([FromQuery] Support_TicketsParameters support_TicketsParameters)
         {
             var tickets = await support_TicketsRepository.GetTickets(support_TicketsParameters);
+
+            var metadata = new
+            {
+                tickets.TotalCount,
+                tickets.PageSize,
+                tickets.CurrentPage,
+                tickets.TotalPages,
+                tickets.HasNext,
+                tickets.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(tickets);
         }

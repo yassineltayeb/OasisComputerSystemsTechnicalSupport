@@ -17,7 +17,17 @@ export class TicketService {
   };
 
   getTickets(): Observable<any> {
-    return this.http.get(this.apiUrl + 'ticketslist', { params: { fullName: 'city'}});
+    return this.http.get(this.apiUrl + 'ticketslist',
+                              {
+                                params:
+                                {
+                                  fullName: 'city',
+                                  pageNumber: '1',
+                                  pageSize: '10',
+                                  sortBy: 'type',
+                                  IsSortAscending: 'true',
+                                }
+                                });
   }
 
   getActiveTickets(): Observable<any> {
