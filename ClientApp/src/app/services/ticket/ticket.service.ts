@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SystemModule } from 'src/app/models/SystemModule';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -20,22 +21,32 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
+  // Get All Tickets
   getTickets(): Observable<any> {
     return this.http.get(this.apiUrl + 'ticketslist?' + this.toQueryString(this.params));
   }
 
+  // Get Active Tickets
   getActiveTickets(): Observable<any> {
     return this.http.get(this.apiUrl + 'activetickets');
   }
 
+  // Get All Tickets Status
   getTicketsStatus(): Observable<any> {
     return this.http.get(this.apiUrl + 'ticketsstatus');
   }
 
+  // Get Active Tickets Status
   getActiveTicketsStatus(): Observable<any> {
     return this.http.get(this.apiUrl + 'activeticketsstatus');
   }
 
+  // Get Tickets Modules
+  getTicketsModules(): Observable<any> {
+    return this.http.get(this.apiUrl + 'ticketmoduleslist');
+  }
+
+  // Convert Objet To Query String
   toQueryString(obj): string {
     const parts = [];
 

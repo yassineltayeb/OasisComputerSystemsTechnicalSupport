@@ -82,25 +82,33 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         }
 
         [HttpGet("ticketprioritieslist")]
-        public IActionResult GetTicketPrioritiesList()
+        public async Task<IActionResult> GetTicketPrioritiesList()
         {
-            var ticketPriorities = support_TicketsRepository.GetTicketPrioritiesList();
+            var ticketPriorities = await support_TicketsRepository.GetTicketPrioritiesList();
 
             return Ok(ticketPriorities);
         }
 
         [HttpGet("tickettypeslist")]
-        public IActionResult GetTicketTypesList()
+        public async Task<IActionResult> GetTicketTypesList()
         {
-            var ticketTypes = support_TicketsRepository.GetTicketTypesList();
+            var ticketTypes = await support_TicketsRepository.GetTicketTypesList();
 
             return Ok(ticketTypes);
         }
 
-        [HttpGet("ticketstatuslist")]
-        public IActionResult GetTicketStatusList()
+        [HttpGet("ticketmoduleslist")]
+        public async Task<IActionResult> GetTicketModulesList()
         {
-            var ticketStatuses = support_TicketsRepository.GetTicketStatusList();
+            var ticketModules = await support_TicketsRepository.GetTicketModulesList();
+
+            return Ok(ticketModules);
+        }
+
+        [HttpGet("ticketstatuslist")]
+        public async Task<IActionResult> GetTicketStatusList()
+        {
+            var ticketStatuses = await support_TicketsRepository.GetTicketStatusList();
 
             return Ok(ticketStatuses);
         }

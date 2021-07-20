@@ -194,7 +194,7 @@ namespace Oasis.TechnicalSupport.Web.Data
         }
 
         // Get Ticket Priorities
-        public IEnumerable<KeyValuePairs> GetTicketPrioritiesList()
+        public async Task<List<KeyValuePairs>> GetTicketPrioritiesList()
         {
             var ticketPrioritiesList = new List<KeyValuePairs>
             {
@@ -203,10 +203,11 @@ namespace Oasis.TechnicalSupport.Web.Data
                 new KeyValuePairs { ID = 3, Name =  Support_TicketsHelper.Priority.Low }
             };
 
-            return ticketPrioritiesList;
+            return await Task.Run(() => ticketPrioritiesList);
         }
 
-        public IEnumerable<KeyValuePairs> GetTicketTypesList()
+        // Get Ticket Types List
+        public async Task<List<KeyValuePairs>> GetTicketTypesList()
         {
             var ticketTypesList = new List<KeyValuePairs>
             {
@@ -215,10 +216,17 @@ namespace Oasis.TechnicalSupport.Web.Data
                 new KeyValuePairs { ID = 3, Name = Support_TicketsHelper.Type.SystemBug }
             };
 
-            return ticketTypesList;
+            return await Task.Run(() => ticketTypesList);
         }
 
-        public IEnumerable<KeyValuePairs> GetTicketStatusList()
+        // Get Ticket Modules List
+        public async Task<List<SystemModule>> GetTicketModulesList()
+        {
+            return await _unitOfWork.context.SystemsModules.ToListAsync(); ;
+        }
+
+        // Get Ticket Status List
+        public async Task<List<KeyValuePairs>> GetTicketStatusList()
         {
             var ticketStatusList = new List<KeyValuePairs>
             {
@@ -231,7 +239,7 @@ namespace Oasis.TechnicalSupport.Web.Data
                 new KeyValuePairs { ID = 7, Name =  Support_TicketsHelper.Status.Canceled }
             };
 
-            return ticketStatusList;
+            return await Task.Run(() => ticketStatusList);
         }
     }
 }

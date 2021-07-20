@@ -1,1 +1,51 @@
-<p>tickets-list works!</p>
+<div class="row">
+  <nz-collapse>
+    <nz-collapse-panel
+      class="collapse_header"
+      [nzHeader]="'Advance Search'"
+      [nzShowArrow]="false"
+      [nzExtra]="extraIcons"
+    >
+      <form nz-form [nzNoColon]="false">
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label [nzLayout]="'vertical'" nzFor="fullName">Client Name</nz-form-label>
+              <nz-form-control>
+                <input nz-input name="fullName" type="text" id="fullName" placeholder="Client Name" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label nzFor="module">Module(s)</nz-form-label>
+              <nz-form-control>
+                <nz-select
+                  [nzMaxTagCount]="2"
+                  [nzMaxTagPlaceholder]="tagPlaceHolder"
+                  nzMode="multiple"
+                  nzPlaceHolder="Please select module"
+                  name="module"
+                  [(ngModel)]="listOfSelectedValue"
+                >
+                  <nz-option *ngFor="let ticketModule of ticketsModules" [nzValue]="ticketModule.module" [nzLabel]="ticketModule.module"></nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template
+                >
+            </nz-form-control>
+            </nz-form-item>
+          </div>
+
+        </div>
+      </form>
+    </nz-collapse-panel>
+  </nz-collapse>
+  <ng-template #extraIcons>
+    <!-- You can use stopPropagation if you don't want the panel to toggle -->
+    <div class="extra_icons">
+      <em nz-icon nzType="plus" (click)="$event.stopPropagation()"></em>
+      <em nz-icon nzType="search"></em>
+    </div>
+  </ng-template>
+</div>

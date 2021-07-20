@@ -19,6 +19,7 @@ namespace Oasis.TechnicalSupport.Web.Data
         public DbSet<StaffProfile> StaffProfiles { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<ClientModule> ClientsModules { get; set; }
+        public DbSet<SystemModule> SystemsModules { get; set; }
 
     }
 }

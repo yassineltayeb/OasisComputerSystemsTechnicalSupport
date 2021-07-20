@@ -14,8 +14,9 @@ namespace Oasis.TechnicalSupport.Web.Repositories
         Task<List<Support_TicketsActiveTickets>> GetActiveTickets();
         Task<List<Support_TicketsActiveTicketsStatus>> GetTicketsStatus();
         Task<List<Support_TicketsActiveTicketsStatus>> GetActiveTicketsStatus();
-        IEnumerable<KeyValuePairs> GetTicketPrioritiesList();
-        IEnumerable<KeyValuePairs> GetTicketTypesList();
-        IEnumerable<KeyValuePairs> GetTicketStatusList();
+        Task<List<KeyValuePairs>> GetTicketPrioritiesList();
+        Task<List<KeyValuePairs>> GetTicketTypesList();
+        Task<List<SystemModule>> GetTicketModulesList();
+        Task<List<KeyValuePairs>> GetTicketStatusList();
     }
 }

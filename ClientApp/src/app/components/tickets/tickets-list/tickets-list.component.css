@@ -1,0 +1,17 @@
+.collapse_header {
+  text-align: left;
+  font-size: 16px;
+}
+
+.extra_icons {
+  display: flex;
+  flex-wrap: wrap;
+  width: 60px;
+  justify-content: space-between;
+  padding-top: 3px;
+}
+
+[nz-icon] {
+  margin-right: 6px;
+  font-size: 20px;
+}
