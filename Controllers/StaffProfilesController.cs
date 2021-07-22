@@ -19,7 +19,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetStaffProfiles()
+        public async Task<IActionResult> GetStaffProfilesList()
         {
             var clients = await staffProfilesRepository.GetStaffProfiles();
 

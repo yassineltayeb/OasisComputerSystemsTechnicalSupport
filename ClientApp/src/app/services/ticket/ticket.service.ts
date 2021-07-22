@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SystemModule } from 'src/app/models/SystemModule';
+import { TicketsParameters } from 'src/app/models/TicketsParameters';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,20 +12,18 @@ export class TicketService {
 
   apiUrl: string = environment.apiUrl + 'tickets/';
 
-  params: any = {
-    fullName: 'city',
-    pageNumber: '1',
-    pageSize: '10',
-    sortBy: 'type',
-    IsSortAscending: 'true',
-  };
-
   constructor(private http: HttpClient) { }
 
   // Get All Tickets
-  getTickets(): Observable<any> {
-    return this.http.get(this.apiUrl + 'ticketslist?' + this.toQueryString(this.params));
+  getTickets(params1): Observable<any> {
+    // return this.http.get(this.apiUrl + 'ticketslist?' + this.toQueryString(params));
+    return this.http.get(this.apiUrl + 'ticketslist' ,  { params: params1});
   }
+
+  // getTickets(params1): Observable<any> {
+  //   const httpParams = new HttpParams({ fromObject: params1 });
+  //   return this.http.get(this.apiUrl + 'ticketslist' ,  { params: httpParams });
+  // }
 
   // Get Active Tickets
   getActiveTickets(): Observable<any> {
@@ -44,6 +43,16 @@ export class TicketService {
   // Get Tickets Modules
   getTicketsModules(): Observable<any> {
     return this.http.get(this.apiUrl + 'ticketmoduleslist');
+  }
+
+  // Get Status List
+  getTicketStatusList(): Observable<any> {
+    return this.http.get(this.apiUrl + 'ticketstatuslist');
+  }
+
+  // Get Types List
+  getTicketTypesList(): Observable<any> {
+    return this.http.get(this.apiUrl + 'tickettypeslist');
   }
 
   // Convert Objet To Query String

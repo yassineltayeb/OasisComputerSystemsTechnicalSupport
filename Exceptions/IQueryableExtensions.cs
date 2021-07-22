@@ -11,32 +11,41 @@ namespace Oasis.TechnicalSupport.Web.Exceptions
     {
         public static IQueryable<Support_TicketsToList> ApplyFiltering(this IQueryable<Support_TicketsToList> query, Support_TicketsParameters support_TicketsParameters)
         {
+            // Client ID
             if (support_TicketsParameters.ClientId.HasValue)
-                query = query.Where(s => s.ClientID == support_TicketsParameters.ClientId);
+                if (support_TicketsParameters.ClientId != 0)
+                    query = query.Where(s => s.ClientID == support_TicketsParameters.ClientId);
 
+            // Client Name
             if (support_TicketsParameters.FullName != null)
                 query = query.Where(t => t.FullName.Contains(support_TicketsParameters.FullName));
 
+            // Module
             if (support_TicketsParameters.Module != null)
-                query = query.Where(t => t.Module.Contains(support_TicketsParameters.Module));
+                query = query.Where(t => support_TicketsParameters.Module.Contains(t.Module));
 
+            // Account Manager
             if (support_TicketsParameters.AccountManager != null)
-                query = query.Where(t => t.AccountManager.Contains(support_TicketsParameters.AccountManager));
+                query = query.Where(t => support_TicketsParameters.AccountManager.Contains(t.AccountManager));
 
+            // Assigned To
             if (support_TicketsParameters.AssignedTo != null)
-                query = query.Where(t => t.AssignedTo.Contains(support_TicketsParameters.AssignedTo));
+                query = query.Where(t => support_TicketsParameters.AssignedTo.Contains(t.AssignedTo));
 
+            // Not Approved
             if (support_TicketsParameters.NotApproved.HasValue)
-                if (support_TicketsParameters.NotApproved == 1)
+                if (support_TicketsParameters.NotApproved == true)
                     query = query.Where(t => t.ApprovedBy != null);
 
+            // High Priority
             if (support_TicketsParameters.HighPriority.HasValue)
-                if (support_TicketsParameters.HighPriority == 1)
-                    query = query.Where(t => t.HighPriority == support_TicketsParameters.HighPriority);
-
+                if (support_TicketsParameters.HighPriority == true)
+                    query = query.Where(t => t.HighPriority == 1);
+            // Status
             if (support_TicketsParameters.Status != null)
                 query = query.Where(t => support_TicketsParameters.Status.Contains(t.Status));
 
+            // Type
             if (support_TicketsParameters.Type != null)
                 query = query.Where(t => support_TicketsParameters.Type.Contains(t.Type));
 

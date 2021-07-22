@@ -121,11 +121,11 @@ namespace Oasis.TechnicalSupport.Web.Models
     {
         public int? ClientId { get; set; }
         public string FullName { get; set; }
-        public string Module { get; set; }
-        public string AccountManager { get; set; }
-        public string AssignedTo { get; set; }
-        public int? NotApproved { get; set; }
-        public int? HighPriority { get; set; }
+        public string[] Module { get; set; }
+        public string[] AccountManager { get; set; }
+        public string[] AssignedTo { get; set; }
+        public bool? NotApproved { get; set; }
+        public bool? HighPriority { get; set; }
         public string[] Status { get; set; }
         public string[] Type { get; set; }
     }

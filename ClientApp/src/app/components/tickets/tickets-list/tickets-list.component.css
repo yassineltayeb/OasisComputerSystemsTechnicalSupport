@@ -6,12 +6,19 @@
 .extra_icons {
   display: flex;
   flex-wrap: wrap;
-  width: 60px;
+  width: 70px;
   justify-content: space-between;
-  padding-top: 3px;
 }
 
 [nz-icon] {
-  margin-right: 6px;
   font-size: 20px;
+}
+
+.filter_buttons {
+  margin-left: 8px;
+  text-align: right;
+}
+
+.filter_buttons button {
+  margin-left: 8px;
 }
