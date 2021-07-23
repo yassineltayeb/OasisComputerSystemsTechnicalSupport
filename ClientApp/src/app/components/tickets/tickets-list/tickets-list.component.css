@@ -22,3 +22,8 @@
 .filter_buttons button {
   margin-left: 8px;
 }
+
+.paginator {
+  float: left;
+}
+

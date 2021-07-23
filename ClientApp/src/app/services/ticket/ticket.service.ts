@@ -17,7 +17,7 @@ export class TicketService {
   // Get All Tickets
   getTickets(params1): Observable<any> {
     // return this.http.get(this.apiUrl + 'ticketslist?' + this.toQueryString(params));
-    return this.http.get(this.apiUrl + 'ticketslist' ,  { params: params1});
+    return this.http.get(this.apiUrl + 'ticketslist' ,  { observe: 'response', params: params1});
   }
 
   // getTickets(params1): Observable<any> {

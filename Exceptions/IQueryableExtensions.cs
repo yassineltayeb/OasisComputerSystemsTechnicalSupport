@@ -17,7 +17,7 @@ namespace Oasis.TechnicalSupport.Web.Exceptions
                     query = query.Where(s => s.ClientID == support_TicketsParameters.ClientId);
 
             // Client Name
-            if (support_TicketsParameters.FullName != null)
+            if (support_TicketsParameters.FullName != null && support_TicketsParameters.FullName != "null")
                 query = query.Where(t => t.FullName.Contains(support_TicketsParameters.FullName));
 
             // Module

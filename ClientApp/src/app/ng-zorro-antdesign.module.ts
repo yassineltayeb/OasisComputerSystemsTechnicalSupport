@@ -11,6 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 // Import what you need. RECOMMENDED. ✔️
 import {
@@ -20,6 +21,7 @@ import {
   RightOutline, ReconciliationOutline, EditOutline, LogoutOutline,
   LoadingOutline, SettingOutline, PlusOutline
 } from '@ant-design/icons-angular/icons';
+import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 
 const icons: IconDefinition[] =
   [
@@ -42,11 +44,15 @@ const icons: IconDefinition[] =
     NzDropDownModule,
     NzTableModule,
     NzCollapseModule,
-    NzSelectModule
+    NzSelectModule,
+    NzPaginationModule
   ],
   imports: [
     CommonModule,
     NzIconModule.forRoot(icons),
+  ],
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
   ]
 })
 export default class NgZorroAntdesignModule { }

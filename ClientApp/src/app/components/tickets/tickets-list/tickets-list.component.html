@@ -8,13 +8,21 @@
     >
       <form nz-form [nzNoColon]="false">
         <div nz-row [nzGutter]="24">
-
           <!-- Full Name -->
           <div nz-col [nzSpan]="6">
             <nz-form-item>
-              <nz-form-label [nzLayout]="'vertical'" nzFor="fullName">Client Name</nz-form-label>
+              <nz-form-label [nzLayout]="'vertical'" nzFor="fullName"
+                >Client Name</nz-form-label
+              >
               <nz-form-control>
-                <input nz-input [(ngModel)]="ticketsParameters.fullName" name="fullName" type="text" id="fullName" placeholder="Client Name" />
+                <input
+                  nz-input
+                  [(ngModel)]="ticketsParameters.fullName"
+                  name="fullName"
+                  type="text"
+                  id="fullName"
+                  placeholder="Client Name"
+                />
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -32,18 +40,25 @@
                   name="module"
                   [(ngModel)]="ticketsParameters.module"
                 >
-                  <nz-option *ngFor="let ticketModule of ticketsModules" [nzValue]="ticketModule.module" [nzLabel]="ticketModule.module"></nz-option>
+                  <nz-option
+                    *ngFor="let ticketModule of ticketsModules"
+                    [nzValue]="ticketModule.module"
+                    [nzLabel]="ticketModule.module"
+                  ></nz-option>
                 </nz-select>
-                <ng-template #modulelaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template
+                <ng-template #modulelaceHolder let-selectedList
+                  >and {{ selectedList.length }} more selected</ng-template
                 >
-            </nz-form-control>
+              </nz-form-control>
             </nz-form-item>
           </div>
 
           <!-- Account Manager -->
           <div nz-col [nzSpan]="6">
             <nz-form-item>
-              <nz-form-label nzFor="accountmanager">Account Manager(s)</nz-form-label>
+              <nz-form-label nzFor="accountmanager"
+                >Account Manager(s)</nz-form-label
+              >
               <nz-form-control>
                 <nz-select
                   [nzMaxTagCount]="1"
@@ -53,11 +68,16 @@
                   name="accountmanager"
                   [(ngModel)]="ticketsParameters.accountManager"
                 >
-                  <nz-option *ngFor="let accountManager of accountManagers" [nzValue]="accountManager.fullNameEn" [nzLabel]="accountManager.fullNameEn"></nz-option>
+                  <nz-option
+                    *ngFor="let accountManager of accountManagers"
+                    [nzValue]="accountManager.fullNameEn"
+                    [nzLabel]="accountManager.fullNameEn"
+                  ></nz-option>
                 </nz-select>
-                <ng-template #accountManagerPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template
+                <ng-template #accountManagerPlaceHolder let-selectedList
+                  >and {{ selectedList.length }} more selected</ng-template
                 >
-            </nz-form-control>
+              </nz-form-control>
             </nz-form-item>
           </div>
 
@@ -74,17 +94,20 @@
                   name="assignedTo"
                   [(ngModel)]="ticketsParameters.assignedTo"
                 >
-                  <nz-option *ngFor="let accountManager of accountManagers" [nzValue]="accountManager.fullNameEn" [nzLabel]="accountManager.fullNameEn"></nz-option>
+                  <nz-option
+                    *ngFor="let accountManager of accountManagers"
+                    [nzValue]="accountManager.fullNameEn"
+                    [nzLabel]="accountManager.fullNameEn"
+                  ></nz-option>
                 </nz-select>
-                <ng-template #assignedToPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template
+                <ng-template #assignedToPlaceHolder let-selectedList
+                  >and {{ selectedList.length }} more selected</ng-template
                 >
-            </nz-form-control>
+              </nz-form-control>
             </nz-form-item>
           </div>
-
         </div>
         <div nz-row [nzGutter]="24">
-
           <!-- Status -->
           <div nz-col [nzSpan]="6">
             <nz-form-item>
@@ -97,13 +120,17 @@
                   name="status"
                   [(ngModel)]="ticketsParameters.status"
                 >
-                  <nz-option *ngFor="let status of statusList" [nzValue]="status.name" [nzLabel]="status.name"></nz-option>
+                  <nz-option
+                    *ngFor="let status of statusList"
+                    [nzValue]="status.name"
+                    [nzLabel]="status.name"
+                  ></nz-option>
                 </nz-select>
-                <ng-template #statusPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template
+                <ng-template #statusPlaceHolder let-selectedList
+                  >and {{ selectedList.length }} more selected</ng-template
                 >
-            </nz-form-control>
+              </nz-form-control>
             </nz-form-item>
-
           </div>
 
           <!-- Types -->
@@ -118,39 +145,121 @@
                   name="type"
                   [(ngModel)]="ticketsParameters.type"
                 >
-                  <nz-option *ngFor="let type of typeList" [nzValue]="type.name" [nzLabel]="type.name"></nz-option>
+                  <nz-option
+                    *ngFor="let type of typeList"
+                    [nzValue]="type.name"
+                    [nzLabel]="type.name"
+                  ></nz-option>
                 </nz-select>
-                <ng-template #typePlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template
+                <ng-template #typePlaceHolder let-selectedList
+                  >and {{ selectedList.length }} more selected</ng-template
                 >
-            </nz-form-control>
+              </nz-form-control>
             </nz-form-item>
-
           </div>
 
           <!-- Types -->
           <div nz-col [nzSpan]="6">
-            <label nz-checkbox name="notApproved" [(ngModel)]="ticketsParameters.notApproved">Not Approved</label>
-            <label nz-checkbox name="highPriority" [(ngModel)]="ticketsParameters.highPriority">High Priority</label>
+            <label
+              nz-checkbox
+              name="notApproved"
+              [(ngModel)]="ticketsParameters.notApproved"
+              >Not Approved</label
+            >
+            <label
+              nz-checkbox
+              name="highPriority"
+              [(ngModel)]="ticketsParameters.highPriority"
+              >High Priority</label
+            >
           </div>
-
         </div>
 
         <div nz-row nzJustify="end" [nzGutter]="24">
           <!-- Buttons -->
           <div nz-col [nzSpan]="24" class="filter_buttons">
-            <button nz-button nzType="primary" (click)="searchTickets()">Search</button>
+            <button nz-button nzType="primary" (click)="searchTickets()">
+              Search
+            </button>
             <button nz-button nzType="default">Clear</button>
           </div>
         </div>
-
       </form>
     </nz-collapse-panel>
   </nz-collapse>
   <ng-template #extraIcons>
     <!-- You can use stopPropagation if you don't want the panel to toggle -->
     <div class="extra_icons">
-      <button nz-button nzType="primary" nzShape="circle"><em nz-icon nzType="plus"></em></button>
-      <button nz-button nzType="primary" nzShape="circle"><em nz-icon nzType="search"></em></button>
+      <button nz-button nzType="primary" nzShape="circle">
+        <em nz-icon nzType="plus" (click)="$event.stopPropagation()"></em>
+      </button>
+      <button nz-button nzType="primary" nzShape="circle">
+        <em nz-icon nzType="search"></em>
+      </button>
     </div>
   </ng-template>
+</div>
+<div class="row">
+  <nz-table
+    nzShowSizeChanger
+    [nzData]="ticketList"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    ([nzTotal])="pagination.totalCount"
+    ([nzPageSize])="pagination.pageSize"
+    ([nzPageIndex])="pagination.currentPage"
+    (nzQueryParams)="onQueryParamsChange($event)"
+    nzSize="small"
+  >
+    <thead>
+      <tr>
+        <th id="sNo">SNo</th>
+        <th id="ticketNo">Ticket No.</th>
+        <th id="status">Status</th>
+        <th id="highPriority">High Priority</th>
+        <th id="priority">Priority</th>
+        <th id="type">Type</th>
+        <th [nzWidth]="" id="fullName">Client Name</th>
+        <th id="module">Module</th>
+        <th id="subject">Subject</th>
+        <th id="problemDescription">Problem Description</th>
+        <th id="category">Category</th>
+        <th id="reminders">Reminder(s)</th>
+        <th id="submittedBy">Submitted By</th>
+        <th id="submittedOn">Submitted On</th>
+        <th id="duration">Duration - Day(s)</th>
+        <th id="closedBy">Closed By</th>
+        <th id="closedOn">Closed On</th>
+        <th id="approvedBy">Approved By</th>
+        <th id="approvedOn">Approved On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of ticketList">
+        <td>{{ ticket.sNo }}</td>
+        <td>{{ ticket.ticketNo }}</td>
+        <td>{{ ticket.status }}</td>
+        <td>{{ ticket.highPriority }}</td>
+        <td>{{ ticket.priority }}</td>
+        <td>{{ ticket.type }}</td>
+        <td>{{ ticket.fullName }}</td>
+        <td>{{ ticket.module }}</td>
+        <td>{{ ticket.subject }}</td>
+        <td>{{ ticket.problemDescription }}</td>
+        <td>{{ ticket.category }}</td>
+        <td>{{ ticket.reminders }}</td>
+        <td>{{ ticket.submittedBy }}</td>
+        <td>{{ ticket.submittedOn }}</td>
+        <td>{{ 0 }}</td>
+        <td>{{ ticket.closedBy }}</td>
+        <td>{{ ticket.closedOn }}</td>
+        <td>{{ ticket.approvedBy }}</td>
+        <td>{{ ticket.approvedOn }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+</div>
+<div class="paginator">
+  <nz-pagination [nzPageIndex]="pagination.currentPage" [nzTotal]="pagination.totalCount" nzShowSizeChanger [nzPageSize]="pagination.pageSize"></nz-pagination>
 </div>

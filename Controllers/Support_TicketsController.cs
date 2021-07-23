@@ -68,12 +68,12 @@ namespace Oasis.TechnicalSupport.Web.Controllers
 
             var metadata = new
             {
-                tickets.TotalCount,
-                tickets.PageSize,
-                tickets.CurrentPage,
-                tickets.TotalPages,
-                tickets.HasNext,
-                tickets.HasPrevious
+                totalCount = tickets.TotalCount,
+                pageSize = tickets.PageSize,
+                currentPage = tickets.CurrentPage,
+                totalPages = tickets.TotalPages,
+                hasNext = tickets.HasNext,
+                hasPrevious = tickets.HasPrevious
             };
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
