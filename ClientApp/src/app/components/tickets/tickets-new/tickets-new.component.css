@@ -2,6 +2,11 @@
   text-align: left;
 }
 
+.ticke_details {
+  display: flex;
+ justify-content: center;
+}
+
 .filter_buttons {
   margin-left: 8px;
   text-align: right;
