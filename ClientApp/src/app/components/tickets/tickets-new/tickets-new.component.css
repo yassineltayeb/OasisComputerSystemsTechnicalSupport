@@ -1,0 +1,13 @@
+[nzTitle] {
+  text-align: left;
+}
+
+.filter_buttons {
+  margin-left: 8px;
+  text-align: right;
+}
+
+.filter_buttons button {
+  margin-left: 8px;
+}
+

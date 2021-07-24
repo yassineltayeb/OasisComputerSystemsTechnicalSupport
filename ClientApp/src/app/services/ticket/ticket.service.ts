@@ -1,8 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SystemModule } from 'src/app/models/SystemModule';
-import { TicketsParameters } from 'src/app/models/TicketsParameters';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -53,6 +51,11 @@ export class TicketService {
   // Get Types List
   getTicketTypesList(): Observable<any> {
     return this.http.get(this.apiUrl + 'tickettypeslist');
+  }
+
+   // Get Ticket Priorities List
+   getTicketPrioritiesList(): Observable<any> {
+    return this.http.get(this.apiUrl + 'ticketprioritieslist');
   }
 
   // Convert Objet To Query String

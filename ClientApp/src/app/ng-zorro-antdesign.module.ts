@@ -12,6 +12,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 // Import what you need. RECOMMENDED. ✔️
 import {
@@ -45,7 +46,8 @@ const icons: IconDefinition[] =
     NzTableModule,
     NzCollapseModule,
     NzSelectModule,
-    NzPaginationModule
+    NzPaginationModule,
+    NzCardModule
   ],
   imports: [
     CommonModule,
