@@ -21,7 +21,7 @@ import {
   LockOutline, LoginOutline, HomeOutline, FormOutline,
   BellOutline, SearchOutline, QuestionOutline, BarChartOutline,
   RightOutline, ReconciliationOutline, EditOutline, LogoutOutline,
-  LoadingOutline, SettingOutline, PlusOutline, InboxOutline
+  LoadingOutline, SettingOutline, PlusOutline, InboxOutline, DeleteOutline
 } from '@ant-design/icons-angular/icons';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 
@@ -31,7 +31,7 @@ const icons: IconDefinition[] =
     LockOutline, LoginOutline, HomeOutline, FormOutline,
     BellOutline, SearchOutline, QuestionOutline, BarChartOutline,
     RightOutline, ReconciliationOutline, EditOutline, LogoutOutline,
-    LoadingOutline, SettingOutline, PlusOutline, InboxOutline
+    LoadingOutline, SettingOutline, PlusOutline, InboxOutline, DeleteOutline
   ];
 
 @NgModule({

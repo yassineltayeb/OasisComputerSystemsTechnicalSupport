@@ -1,6 +1,6 @@
 <div class="row ticke_details">
   <nz-card nzTitle="Ticket Details">
-    <form nz-form [nzNoColon]="true">
+    <form nz-form [nzNoColon]="true" (ngSubmit)="submitForm()">
       <div nz-row [nzGutter]="24">
         <!-- Priority -->
         <div nz-col [nzSpan]="8">
@@ -13,6 +13,7 @@
                 nzShowSearch
                 nzPlaceHolder="Select Priority"
                 name="priority"
+                [(ngModel)]="ticket.priority"
               >
                 <nz-option
                   *ngFor="let priority of ticketPriorities"
@@ -29,7 +30,7 @@
           <nz-form-item>
             <nz-form-label [nzRequired]="true" nzFor="type">Type</nz-form-label>
             <nz-form-control>
-              <nz-select nzShowSearch nzPlaceHolder="Select Type" name="type">
+              <nz-select nzShowSearch nzPlaceHolder="Select Type" name="type" [(ngModel)]="ticket.type">
                 <nz-option
                   *ngFor="let type of typeList"
                   [nzValue]="type.name"
@@ -50,6 +51,7 @@
                 nzAllowClear
                 nzPlaceHolder="Select Assigned To"
                 name="assignedTo"
+                [(ngModel)]="ticket.assignedTo"
               >
                 <nz-option
                   *ngFor="let accountManager of accountManagers"
@@ -65,18 +67,19 @@
         <!-- Client -->
         <div nz-col [nzSpan]="24">
           <nz-form-item>
-            <nz-form-label [nzRequired]="true" [nzSpan]="2" nzFor="client"
+            <nz-form-label [nzRequired]="true" [nzSpan]="2" nzFor="clientID"
               >Client</nz-form-label
             >
             <nz-form-control>
               <nz-select
                 nzShowSearch
                 nzPlaceHolder="Select Client"
-                name="client"
+                name="clientID"
+                [(ngModel)]="ticket.clientID"
               >
                 <nz-option
                   *ngFor="let client of clients"
-                  [nzValue]="client.fullName"
+                  [nzValue]="client.sNo"
                   [nzLabel]="client.fullName"
                 ></nz-option>
               </nz-select>
@@ -97,6 +100,7 @@
                 nzShowSearch
                 nzPlaceHolder="Select Module"
                 name="module"
+                [(ngModel)]="ticket.module"
               >
                 <nz-option
                   *ngFor="let ticketModule of ticketsModules"
@@ -123,6 +127,7 @@
                 type="text"
                 id="subject"
                 placeholder="Subject"
+                [(ngModel)]="ticket.subject"
               />
             </nz-form-control>
           </nz-form-item>
@@ -146,6 +151,7 @@
                 id="problemDescription"
                 placeholder="Problem Description"
                 [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+                [(ngModel)]="ticket.problemDescription"
               ></textarea>
             </nz-form-control>
           </nz-form-item>

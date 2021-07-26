@@ -7,6 +7,8 @@ import { ClientService } from 'src/app/services/client/client.service';
 import { StaffProfileService } from 'src/app/services/staff_profile/staff-profile.service';
 import { TicketService } from 'src/app/services/ticket/ticket.service';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
+import { Ticket } from 'src/app/models/Ticket';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-tickets-new',
@@ -21,8 +23,20 @@ export class TicketsNewComponent implements OnInit {
   clients: Client[] = [];
   ticketsModules: SystemModule[] = [];
   statusList: KeyValuePairs[] = [];
+  ticket: Ticket = {
+    assignedTo: '',
+    clientID: 0,
+    type: '',
+    priority: '',
+    module: '',
+    subject: '',
+    problemDescription: '',
+    submittedBy: '',
+    attachments: []
+  };
 
-  constructor(private ticketService: TicketService,
+  constructor(private authServie: AuthService,
+              private ticketService: TicketService,
               private staffProfileService: StaffProfileService,
               private clientService: ClientService) { }
 
@@ -30,7 +44,6 @@ export class TicketsNewComponent implements OnInit {
     // Get Ticket Priorities
     this.ticketService.getTicketPrioritiesList().subscribe((result: KeyValuePairs[]) => {
       this.ticketPriorities = result;
-      console.log('this.ticketPriorities', this.ticketPriorities);
     });
 
     // Get Type List
@@ -59,15 +72,28 @@ export class TicketsNewComponent implements OnInit {
     });
   }
 
+  submitForm(): void {
+    console.log('submitForm');
+    this.ticket.submittedBy = this.authServie.getCurrentUser();
+    console.log('ticket', this.ticket);
+  }
+
   handleChange({ file, fileList }: NzUploadChangeParam): void {
     const status = file.status;
     if (status !== 'uploading') {
       console.log(file, fileList);
     }
+
+    console.log(`${file}`);
+
+    if (this.ticket.attachments.indexOf(file) === 0) {
+      this.ticket.attachments.push(file);
+    }
+
     if (status === 'done') {
-      // this.msg.success(`${file.name} file uploaded successfully.`);
+      console.log(`${file.name} file uploaded successfully.`);
     } else if (status === 'error') {
-      // this.msg.error(`${file.name} file upload failed.`);
+      console.log(`${file.name} file upload failed.`);
     }
   }
 
