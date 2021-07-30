@@ -12,6 +12,11 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
+  // Add Ticket
+  public addTicket(ticketFormData: FormData): Observable<any> {
+    return this.http.post(this.apiUrl, ticketFormData);
+ }
+
   // Get All Tickets
   getTickets(params1): Observable<any> {
     // return this.http.get(this.apiUrl + 'ticketslist?' + this.toQueryString(params));

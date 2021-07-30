@@ -29,9 +29,9 @@ namespace Oasis.TechnicalSupport.Web.Data
 
         public async Task<StaffProfile> GetCurrentUser()
         {
-            var username = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+            var staffID = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            return await GetStaffByUsername(username);
+            return await GetStaffByID(staffID);
         }
 
         public async Task<StaffProfile> GetStaffByUsername(string username)

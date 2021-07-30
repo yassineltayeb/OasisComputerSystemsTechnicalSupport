@@ -20,7 +20,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTicket(Support_TicketsToRegister ticketToAdd)
+        public async Task<IActionResult> AddTicket([FromForm] Support_TicketsToRegister ticketToAdd)
         {
 
             var ticket = await support_TicketsRepository.AddTicket(ticketToAdd);

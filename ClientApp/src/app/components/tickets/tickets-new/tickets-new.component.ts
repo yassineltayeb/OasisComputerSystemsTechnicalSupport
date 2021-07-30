@@ -73,28 +73,58 @@ export class TicketsNewComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log('submitForm');
-    this.ticket.submittedBy = this.authServie.getCurrentUser();
-    console.log('ticket', this.ticket);
+    let formData = new FormData();
+
+    // for (const property of Object.keys(this.ticket)) {
+    //   console.log('property', property);
+    //   console.log('value', this.ticket[property]);
+    //   formData.append(property, this.ticket[property]);
+    // }
+    formData.append('assignedTo', this.ticket.assignedTo);
+    formData.append('clientID', this.ticket.clientID.toString());
+    formData.append('type', this.ticket.type);
+    formData.append('priority', this.ticket.priority);
+    formData.append('module', this.ticket.module);
+    formData.append('subject', this.ticket.subject);
+    formData.append('problemDescription', this.ticket.problemDescription);
+    formData.append('submittedBy', this.ticket.submittedBy);
+    // formData = this.jsonToFormData(this.ticket);
+
+    this.ticket.attachments.forEach(item => {
+      formData.append('attachments', item.originFileObj);
+      console.log('item', item);
+   });
+
+    this.ticketService.addTicket(formData).subscribe(result => {
+      console.log(result);
+    });
   }
 
   handleChange({ file, fileList }: NzUploadChangeParam): void {
-    const status = file.status;
-    if (status !== 'uploading') {
-      console.log(file, fileList);
-    }
+    this.ticket.attachments = fileList;
+    console.log('attachments', this.ticket.attachments);
+  }
 
-    console.log(`${file}`);
+  // tslint:disable-next-line:typedef
+  buildFormData(formData, data, parentKey) {
+    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+      Object.keys(data).forEach(key => {
+        this.buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+      });
+    } else {
+      const value = data == null ? '' : data;
 
-    if (this.ticket.attachments.indexOf(file) === 0) {
-      this.ticket.attachments.push(file);
+      formData.append(parentKey, value);
     }
+  }
 
-    if (status === 'done') {
-      console.log(`${file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      console.log(`${file.name} file upload failed.`);
-    }
+  // tslint:disable-next-line:typedef
+  jsonToFormData(data) {
+    const formData = new FormData();
+
+    this.buildFormData(formData, data, null);
+
+    return formData;
   }
 
 }
