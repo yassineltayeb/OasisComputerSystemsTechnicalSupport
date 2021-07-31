@@ -1,18 +1,31 @@
-<div *ngIf="!isLoggedIn">
-  <router-outlet></router-outlet>
-</div>
+<div *ngIf="!isLoggedIn; then login; else layout"></div>
 
-<div *ngIf="isLoggedIn" class="grid-container" [ngClass]="isOnMidScreen ? 'fill-grid-container' : 'grid-container'">
-  <div class="header">
-     <app-header></app-header>
-  </div>
-  <div *ngIf="!isOnMidScreen" class="sidebar">
-     <app-sidebar></app-sidebar>
-  </div>
-  <div class="contents">
-     <div class="outlet">
+<!-- Login Form -->
+<ng-template #login>
+  <router-outlet></router-outlet>
+</ng-template>
+
+<!-- System Layout -->
+<ng-template #layout>
+  <div class="grid-container" [ngClass]="isOnMidScreen ? 'fill-grid-container' : 'grid-container'">
+    <!-- Header -->
+    <div class="header">
+      <app-header></app-header>
+    </div>
+
+    <!-- Sidenar -->
+    <div *ngIf="!isOnMidScreen" class="sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <!-- Body -->
+    <div class="contents">
+      <div class="outlet">
         <router-outlet></router-outlet>
-     </div>
-     <app-footer></app-footer>
+      </div>
+
+      <!-- Footer -->
+      <app-footer></app-footer>
+    </div>
   </div>
-</div>
+</ng-template>

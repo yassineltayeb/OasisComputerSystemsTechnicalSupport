@@ -22,5 +22,4 @@ export class AppComponent implements OnInit {
   getAuthenticationState(): void {
     this.authService.getIsLoggedIn().subscribe(value => (this.isLoggedIn = value));
   }
-
 }

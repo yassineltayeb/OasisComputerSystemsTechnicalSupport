@@ -47,7 +47,7 @@ export function tokenGetter() {
         allowedDomains: [
           'https://localhost:44304/api/',
           'http://localhost:4200/api/',
-          'https://localhost:5000/'
+          'http://localhost:5000/'
         ]
       },
     }),

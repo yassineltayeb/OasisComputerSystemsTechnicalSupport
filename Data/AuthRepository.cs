@@ -60,7 +60,7 @@ namespace Oasis.TechnicalSupport.Web.Data
 
             staffProfile.LastLoginOn = DateTime.Now;
 
-            await unitOfWork.Commit();
+            await unitOfWork.SaveAll();
 
             var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, staffProfile.StaffID.ToString()),

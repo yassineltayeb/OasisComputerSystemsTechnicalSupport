@@ -11,7 +11,7 @@
       </div>
       <div class="login-card-right col-md-6">
           <div class="login-card-right-body">
-            <form>
+            <form nz-form #loginForm>
               <div class="system-title-wrapper">
                 <h3 class="system-title">Ticket Management Service</h3>
               </div>
@@ -21,16 +21,16 @@
               <br/>
 
               <nz-form-item>
-                <nz-form-control nzErrorTip="Please input your username!">
+                <nz-form-control nzErrorTip="Please input your username!" [nzValidateStatus]="aa">
                   <nz-input-group nzPrefixIcon="user">
-                    <input name="username" [(ngModel)]="user.username" type="text" nz-input placeholder="Username" />
+                    <input name="username" [(ngModel)]="user.username" type="text" nz-input placeholder="Username" required />
                   </nz-input-group>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Please input your Password!">
                   <nz-input-group nzPrefixIcon="lock">
-                    <input name="password" [(ngModel)]="user.password" type="password" nz-input placeholder="Password" />
+                    <input name="password" [(ngModel)]="user.password" type="password" nz-input placeholder="Password" required />
                   </nz-input-group>
                 </nz-form-control>
               </nz-form-item>
