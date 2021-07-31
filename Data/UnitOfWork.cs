@@ -30,7 +30,7 @@ namespace Oasis.TechnicalSupport.Web.Data
 
         public async Task Commit()
         {
-            await context.SaveChangesAsync();
+            await context.Database.CommitTransactionAsync();
         }
 
         public void Dispose()

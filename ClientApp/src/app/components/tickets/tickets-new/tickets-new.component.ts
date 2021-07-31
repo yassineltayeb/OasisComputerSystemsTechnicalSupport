@@ -9,6 +9,7 @@ import { TicketService } from 'src/app/services/ticket/ticket.service';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { Ticket } from 'src/app/models/Ticket';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { jsonToFormData } from 'src/app/helpers/helpers';
 
 @Component({
   selector: 'app-tickets-new',
@@ -75,25 +76,11 @@ export class TicketsNewComponent implements OnInit {
   submitForm(): void {
     let formData = new FormData();
 
-    // for (const property of Object.keys(this.ticket)) {
-    //   console.log('property', property);
-    //   console.log('value', this.ticket[property]);
-    //   formData.append(property, this.ticket[property]);
-    // }
-    formData.append('assignedTo', this.ticket.assignedTo);
-    formData.append('clientID', this.ticket.clientID.toString());
-    formData.append('type', this.ticket.type);
-    formData.append('priority', this.ticket.priority);
-    formData.append('module', this.ticket.module);
-    formData.append('subject', this.ticket.subject);
-    formData.append('problemDescription', this.ticket.problemDescription);
-    formData.append('submittedBy', this.ticket.submittedBy);
-    // formData = this.jsonToFormData(this.ticket);
+    formData = jsonToFormData(this.ticket);
 
     this.ticket.attachments.forEach(item => {
       formData.append('attachments', item.originFileObj);
-      console.log('item', item);
-   });
+    });
 
     this.ticketService.addTicket(formData).subscribe(result => {
       console.log(result);
@@ -103,28 +90,6 @@ export class TicketsNewComponent implements OnInit {
   handleChange({ file, fileList }: NzUploadChangeParam): void {
     this.ticket.attachments = fileList;
     console.log('attachments', this.ticket.attachments);
-  }
-
-  // tslint:disable-next-line:typedef
-  buildFormData(formData, data, parentKey) {
-    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
-      Object.keys(data).forEach(key => {
-        this.buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
-      });
-    } else {
-      const value = data == null ? '' : data;
-
-      formData.append(parentKey, value);
-    }
-  }
-
-  // tslint:disable-next-line:typedef
-  jsonToFormData(data) {
-    const formData = new FormData();
-
-    this.buildFormData(formData, data, null);
-
-    return formData;
   }
 
 }
