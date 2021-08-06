@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserLogin } from 'src/app/models/UserLogin';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -9,24 +11,26 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  user: UserLogin = {
-    username: '',
-    password: ''
-  };
+  loginForm: FormGroup;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private notification: NzNotificationService, private fb: FormBuilder) { }
 
-  aa;
+  ngOnInit(): void {
 
-  ngOnInit(): void { }
+    // Initialize login from
+    this.loginForm = this.fb.group({
+      username: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+    });
+  }
 
-  Login(): void {
-    console.log(this.aa);
-    this.authService.login(this.user).subscribe(next => {
-      // this.alertify.success('Logged successfully');
+  // Login
+  login(user: UserLogin): void {
+    this.authService.login(user).subscribe(next => {
+      this.notification.success('Login', 'Logged successfully');
       this.authService.setIsLoggedIn(true);
     }, err => {
-      // this.alertify.error(err.error.message);
+      this.notification.error('Login', 'Logged successfully');
       console.log(err);
     });
   }

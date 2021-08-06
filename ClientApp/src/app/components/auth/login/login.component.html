@@ -11,7 +11,7 @@
       </div>
       <div class="login-card-right col-md-6">
           <div class="login-card-right-body">
-            <form nz-form #loginForm>
+            <form nz-form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
               <div class="system-title-wrapper">
                 <h3 class="system-title">Ticket Management Service</h3>
               </div>
@@ -21,16 +21,16 @@
               <br/>
 
               <nz-form-item>
-                <nz-form-control nzErrorTip="Please input your username!" [nzValidateStatus]="aa">
+                <nz-form-control nzErrorTip="Please input your username!">
                   <nz-input-group nzPrefixIcon="user">
-                    <input name="username" [(ngModel)]="user.username" type="text" nz-input placeholder="Username" required />
+                    <input name="username" formControlName="username" type="text" nz-input placeholder="Username" />
                   </nz-input-group>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
                 <nz-form-control nzErrorTip="Please input your Password!">
                   <nz-input-group nzPrefixIcon="lock">
-                    <input name="password" [(ngModel)]="user.password" type="password" nz-input placeholder="Password" required />
+                    <input name="password" formControlName="password" type="password" nz-input placeholder="Password" />
                   </nz-input-group>
                 </nz-form-control>
               </nz-form-item>
@@ -42,7 +42,7 @@
                   </label>
                 </div>
               </div>
-              <button nz-button class="login-form-button login-form-margin" nzType="primary" (click)="Login()"><em nz-icon nzType="login"></em>Login</button>
+              <button nz-button class="login-form-button login-form-margin" nzType="primary" type="submit" [disabled]="!loginForm.valid"><em nz-icon nzType="login"></em>Login</button>
             </form>
           </div>
       </div>

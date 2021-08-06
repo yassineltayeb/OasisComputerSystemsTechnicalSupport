@@ -14,6 +14,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 // Import what you need. RECOMMENDED. ✔️
 import {
@@ -49,7 +50,8 @@ const icons: IconDefinition[] =
     NzSelectModule,
     NzPaginationModule,
     NzCardModule,
-    NzUploadModule
+    NzUploadModule,
+    NzNotificationModule
   ],
   imports: [
     CommonModule,
