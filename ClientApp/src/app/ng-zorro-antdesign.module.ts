@@ -15,6 +15,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 // Import what you need. RECOMMENDED. ✔️
 import {
@@ -22,7 +23,8 @@ import {
   LockOutline, LoginOutline, HomeOutline, FormOutline,
   BellOutline, SearchOutline, QuestionOutline, BarChartOutline,
   RightOutline, ReconciliationOutline, EditOutline, LogoutOutline,
-  LoadingOutline, SettingOutline, PlusOutline, InboxOutline, DeleteOutline, DownloadOutline
+  LoadingOutline, SettingOutline, PlusOutline, InboxOutline,
+  DeleteOutline, DownloadOutline
 } from '@ant-design/icons-angular/icons';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 
@@ -32,7 +34,8 @@ const icons: IconDefinition[] =
     LockOutline, LoginOutline, HomeOutline, FormOutline,
     BellOutline, SearchOutline, QuestionOutline, BarChartOutline,
     RightOutline, ReconciliationOutline, EditOutline, LogoutOutline,
-    LoadingOutline, SettingOutline, PlusOutline, InboxOutline, DeleteOutline, DownloadOutline
+    LoadingOutline, SettingOutline, PlusOutline, InboxOutline,
+    DeleteOutline, DownloadOutline
   ];
 
 @NgModule({
@@ -51,7 +54,8 @@ const icons: IconDefinition[] =
     NzPaginationModule,
     NzCardModule,
     NzUploadModule,
-    NzNotificationModule
+    NzNotificationModule,
+    NzAlertModule
   ],
   imports: [
     CommonModule,

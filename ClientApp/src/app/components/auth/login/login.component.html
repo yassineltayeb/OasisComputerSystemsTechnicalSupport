@@ -1,50 +1,60 @@
 <div class="login-wrapper">
   <div class="login-card row">
-      <div class="login-card-left col-md-6">
-          <div class="brand">
-              <img src="assets/oasis-logo.png" alt="Oasis Logo">
-              <div class="brand-text">
-                  <span>Oasis Computer Systems</span><br>
-                  <span class="slogan">Shaping the future together...</span>
-              </div>
+    <div class="login-card-left col-md-6">
+        <div class="brand">
+            <img src="assets/oasis-logo.png" alt="Oasis Logo">
+            <div class="brand-text">
+                <span>Oasis Computer Systems</span><br>
+                <span class="slogan">Shaping the future together...</span>
+            </div>
+        </div>
+    </div>
+    <div class="login-card-right col-md-6">
+      <div class="login-card-right-body">
+        <form nz-form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+          <div class="system-title-wrapper">
+            <h3 class="system-title">Ticket Management Service</h3>
           </div>
-      </div>
-      <div class="login-card-right col-md-6">
-          <div class="login-card-right-body">
-            <form nz-form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
-              <div class="system-title-wrapper">
-                <h3 class="system-title">Ticket Management Service</h3>
-              </div>
-              <div class="system-title-wrapper">
-                <h3 class="system-title">Sign In</h3>
-              </div>
-              <br/>
 
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Please input your username!">
-                  <nz-input-group nzPrefixIcon="user">
-                    <input name="username" formControlName="username" type="text" nz-input placeholder="Username" />
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Please input your Password!">
-                  <nz-input-group nzPrefixIcon="lock">
-                    <input name="password" formControlName="password" type="password" nz-input placeholder="Password" />
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-
-              <div nz-row class="login-form-margin">
-                <div nz-col [nzSpan]="12">
-                  <label nz-checkbox>
-                    <span>Remember me</span>
-                  </label>
-                </div>
-              </div>
-              <button nz-button class="login-form-button login-form-margin" nzType="primary" type="submit" [disabled]="!loginForm.valid"><em nz-icon nzType="login"></em>Login</button>
-            </form>
+          <div class="system-title-wrapper">
+            <h3 class="system-title">Sign In</h3>
           </div>
+          <br/>
+
+          <!-- Username -->
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your username!">
+              <nz-input-group nzPrefixIcon="user">
+                <input name="username" formControlName="username" type="text" nz-input placeholder="Username" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- Password -->
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your Password!">
+              <nz-input-group nzPrefixIcon="lock">
+                <input name="password" formControlName="password" type="password" nz-input placeholder="Password" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- Incorrect Username or Password -->
+          <nz-alert *ngIf="showIncorrectUsernameOrPassword" nzType="error" nzMessage="Incorrect Username or Password" nzShowIcon>Incorrect Username or Password</nz-alert>
+
+          <!-- Remember Me -->
+          <div nz-row class="login-form-margin">
+            <div nz-col [nzSpan]="12">
+              <label nz-checkbox>
+                <span>Remember me</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Login Button -->
+          <button [nzLoading]="isLoading" nz-button class="login-form-button login-form-margin" nzType="primary" type="submit" [disabled]="!loginForm.valid"><em nz-icon nzType="login"></em>Login</button>
+        </form>
       </div>
+    </div>
   </div>
 </div>

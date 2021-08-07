@@ -120,6 +120,10 @@ hr {
   text-align: left;
 }
 
+.login-form-incorrect {
+  color: #ff4d4f;
+}
+
 @media screen and (max-width: 770px) {
   .brand img {
     height: 13vw;
