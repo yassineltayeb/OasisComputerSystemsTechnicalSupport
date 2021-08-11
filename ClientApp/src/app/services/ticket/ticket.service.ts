@@ -45,8 +45,14 @@ export class TicketService {
 
   // Get Tickets Modules
   getTicketsModules(): Observable<any> {
-    return this.http.get(this.apiUrl + 'ticketmoduleslist');
+    return this.http.get(this.apiUrl + 'ticketmoduleslist/');
   }
+
+  // Get Tickets Modules
+  getTicketsClientModules(clientId): Observable<any> {
+    return this.http.get(this.apiUrl + 'ticketclientmoduleslist/' + clientId);
+  }
+
 
   // Get Status List
   getTicketStatusList(): Observable<any> {

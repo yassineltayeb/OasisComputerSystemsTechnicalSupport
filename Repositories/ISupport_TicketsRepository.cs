@@ -17,6 +17,7 @@ namespace Oasis.TechnicalSupport.Web.Repositories
         Task<List<KeyValuePairs>> GetTicketPrioritiesList();
         Task<List<KeyValuePairs>> GetTicketTypesList();
         Task<List<SystemModule>> GetTicketModulesList();
+        Task<List<ClientModule>> GetTicketClientModulesList(int clientID);
         Task<List<KeyValuePairs>> GetTicketStatusList();
     }
 }

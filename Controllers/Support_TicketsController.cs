@@ -98,9 +98,17 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         }
 
         [HttpGet("ticketmoduleslist")]
-        public async Task<IActionResult> GetTicketModulesList()
+        public async Task<IActionResult> GetTicketModulesList(int clientID)
         {
-            var ticketModules = await support_TicketsRepository.GetTicketModulesList();
+            var ticketModules = await support_TicketsRepository.GetTicketClientModulesList(clientID);
+
+            return Ok(ticketModules);
+        }
+        
+        [HttpGet("ticketclientmoduleslist/{clientID}")]
+        public async Task<IActionResult> GetTicketClientModulesList(int clientID)
+        {
+            var ticketModules = await support_TicketsRepository.GetTicketClientModulesList(clientID);
 
             return Ok(ticketModules);
         }

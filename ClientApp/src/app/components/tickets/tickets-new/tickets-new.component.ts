@@ -6,10 +6,12 @@ import { SystemModule } from 'src/app/models/SystemModule';
 import { ClientService } from 'src/app/services/client/client.service';
 import { StaffProfileService } from 'src/app/services/staff_profile/staff-profile.service';
 import { TicketService } from 'src/app/services/ticket/ticket.service';
-import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
+import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { Ticket } from 'src/app/models/Ticket';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { jsonToFormData } from 'src/app/helpers/helpers';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-tickets-new',
@@ -18,30 +20,27 @@ import { jsonToFormData } from 'src/app/helpers/helpers';
 })
 export class TicketsNewComponent implements OnInit {
 
+  ticketForm: FormGroup;
+
   ticketPriorities: KeyValuePairs[] = [];
   typeList: KeyValuePairs[] = [];
   accountManagers: StaffProfile[] = [];
   clients: Client[] = [];
   ticketsModules: SystemModule[] = [];
   statusList: KeyValuePairs[] = [];
-  ticket: Ticket = {
-    assignedTo: '',
-    clientID: 0,
-    type: '',
-    priority: '',
-    module: '',
-    subject: '',
-    problemDescription: '',
-    submittedBy: '',
-    attachments: []
-  };
+  attachments: NzUploadFile[];
+  isLoading = false;
+  isLoadingModule = false;
 
-  constructor(private authServie: AuthService,
-              private ticketService: TicketService,
+  constructor(private ticketService: TicketService,
               private staffProfileService: StaffProfileService,
-              private clientService: ClientService) { }
+              private clientService: ClientService,
+              private notification: NzNotificationService,
+              private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.initForm();
+
     // Get Ticket Priorities
     this.ticketService.getTicketPrioritiesList().subscribe((result: KeyValuePairs[]) => {
       this.ticketPriorities = result;
@@ -62,34 +61,74 @@ export class TicketsNewComponent implements OnInit {
       this.clients = result;
     });
 
-    // Get Ticket Modules
-    this.ticketService.getTicketsModules().subscribe((result: SystemModule[]) => {
-      this.ticketsModules = result;
-    });
-
     // Get Status List
     this.ticketService.getTicketStatusList().subscribe((result: KeyValuePairs[]) => {
       this.statusList = result;
     });
   }
 
-  submitForm(): void {
+  // Initialize login from
+  initForm(): void {
+    this.ticketForm = this.fb.group({
+      assignedTo: [null],
+      clientID: [null, [Validators.required]],
+      type: [null, [Validators.required]],
+      priority: [null, [Validators.required]],
+      module: [null, [Validators.required]],
+      subject: [null, [Validators.required]],
+      problemDescription: [null, [Validators.required]],
+      submittedBy: [null],
+    });
+
+  }
+
+  // Get Client Modules
+  getClientModules(): void {
+    this.isLoadingModule = true;
+
+    this.ticketService.getTicketsClientModules(this.ticketForm.controls.clientID.value).subscribe((result: SystemModule[]) => {
+      this.ticketsModules = result;
+    });
+
+    this.isLoadingModule = false;
+
+  }
+
+  // Submit Form
+  submitForm(ticket: Ticket): void {
+
+    this.isLoading = true;
+
     let formData = new FormData();
 
-    formData = jsonToFormData(this.ticket);
+    formData = jsonToFormData(ticket);
 
-    this.ticket.attachments.forEach(item => {
+    this.attachments.forEach(item => {
       formData.append('attachments', item.originFileObj);
     });
 
-    this.ticketService.addTicket(formData).subscribe(result => {
-      console.log(result);
-    });
+    this.ticketService.addTicket(formData).subscribe(
+      result => {
+        this.isLoading = false;
+        this.ticketForm.reset();
+        this.notification.success('Tickets', 'Saved successfully');
+      }, err => {
+        this.isLoading = false;
+        this.notification.error('Login', 'Error when saving the ticket');
+        console.log('message', err.message);
+        console.log('error', err.error);
+      });
   }
 
+  // Upload Files
   handleChange({ file, fileList }: NzUploadChangeParam): void {
-    this.ticket.attachments = fileList;
-    console.log('attachments', this.ticket.attachments);
+    this.attachments = fileList;
+  }
+
+  // Clear Form
+  clear(): void {
+    this.isLoading = false;
+    this.ticketForm.reset();
   }
 
 }

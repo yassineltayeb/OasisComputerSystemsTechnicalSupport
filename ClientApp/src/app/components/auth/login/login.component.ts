@@ -15,7 +15,9 @@ export class LoginComponent implements OnInit {
   showIncorrectUsernameOrPassword: false;
   isLoading = false;
 
-  constructor(private authService: AuthService, private notification: NzNotificationService, private fb: FormBuilder) { }
+  constructor(private authService: AuthService,
+              private notification: NzNotificationService,
+              private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -28,7 +30,6 @@ export class LoginComponent implements OnInit {
       password: [null, [Validators.required]],
     });
 
-    this.loginForm.updateValueAndValidity();
   }
 
   // Login
@@ -36,18 +37,20 @@ export class LoginComponent implements OnInit {
     this.showIncorrectUsernameOrPassword = false;
     this.isLoading = true;
 
-    this.authService.login(user).subscribe(next => {
-      this.isLoading = false;
+    this.authService.login(user).subscribe(
+      next => {
+        this.isLoading = false;
 
-      this.notification.success('Login', 'Logged successfully');
-      this.authService.setIsLoggedIn(true);
-    }, err => {
-      this.isLoading = false;
-      this.notification.error('Login', 'Error in login');
-      this.showIncorrectUsernameOrPassword = err.error.includes('Incorrect username or password');
-      console.log('message', err.message);
-      console.log('error', err.error);
-    });
+        this.notification.success('Login', 'Logged successfully');
+        this.authService.setIsLoggedIn(true);
+      },
+      err => {
+        this.isLoading = false;
+        this.notification.error('Login', 'Error in login');
+        this.showIncorrectUsernameOrPassword = err.error.includes('Incorrect username or password');
+        console.log('message', err.message);
+        console.log('error', err.error);
+      });
   }
 
 }

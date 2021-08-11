@@ -77,9 +77,9 @@ namespace Oasis.TechnicalSupport.Web.Data
 
             await _unitOfWork.Commit();
 
-            var ticketToRerurn = await GetTicketById(ticketToAdd.SNo);
+            var ticketToReturn = await GetTicketById(ticketToAdd.SNo);
 
-            return ticketToRerurn;
+            return ticketToReturn;
         }
 
         // Get Ticket By ID
@@ -223,6 +223,12 @@ namespace Oasis.TechnicalSupport.Web.Data
         public async Task<List<SystemModule>> GetTicketModulesList()
         {
             return await _unitOfWork.context.SystemsModules.ToListAsync(); ;
+        }
+
+        // Get Ticket Client Modules List
+        public async Task<List<ClientModule>> GetTicketClientModulesList(int clientID)
+        {
+            return await _unitOfWork.context.ClientsModules.Where(c => c.ClientID == clientID).ToListAsync(); ;
         }
 
         // Get Ticket Status List
