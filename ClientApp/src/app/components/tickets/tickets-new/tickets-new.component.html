@@ -165,6 +165,7 @@
       <div nz-row [nzGutter]="24">
         <div nz-col [nzSpan]="24">
           <nz-upload
+            [nzShowUploadList]="false"
             [nzSpan]="3"
             nzType="drag"
             [nzMultiple]="true"
@@ -185,6 +186,31 @@
         </div>
       </div>
 
+      <!-- Attachments List -->
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="24">
+          <nz-table [nzData]="attachments" nzBordered [nzFrontPagination]="false">
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Type</th>
+                <th>Size</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let attachment of attachments">
+                <td>{{ attachment.name }}</td>
+                <td>{{ attachment.type }}</td>
+                <td>{{ attachment.size / 1024 / 1024 | number : '1.2-3' }} MB</td>
+                <td>
+                  <button type="button" nz-button nzType="primary" [nzSize]="small" nzDanger (click)="deleteAttachments(attachment)"><em nz-icon nzType="delete"></em>Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
       <div nz-row nzJustify="end" [nzGutter]="24">
         <!-- Buttons -->
         <div nz-col [nzSpan]="24" class="filter_buttons">

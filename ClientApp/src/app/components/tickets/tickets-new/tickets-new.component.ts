@@ -123,12 +123,19 @@ export class TicketsNewComponent implements OnInit {
   // Upload Files
   handleChange({ file, fileList }: NzUploadChangeParam): void {
     this.attachments = fileList;
+    console.log(this.attachments);
   }
 
   // Clear Form
   clear(): void {
     this.isLoading = false;
     this.ticketForm.reset();
+  }
+
+  // Delete Attachment
+  deleteAttachments(file: NzUploadFile): void {
+    console.log(file);
+    this.attachments.splice(this.attachments.indexOf(file), 1);
   }
 
 }
