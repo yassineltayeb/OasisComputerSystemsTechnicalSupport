@@ -1,15 +1,17 @@
 <div class="row ticke_details">
   <nz-card nzTitle="Ticket Details">
-    <!-- Ticket Form -->
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                               Ticket Form                               -->
+    <!-- ----------------------------------------------------------------------- -->
     <form nz-form [formGroup]="ticketForm" [nzNoColon]="true" (ngSubmit)="submitForm(ticketForm.value)">
       <div nz-row [nzGutter]="24">
-        <!-- Priority -->
+        <!-- ------------------------------ Priority ------------------------------- -->
         <div nz-col [nzSpan]="8">
           <nz-form-item>
             <nz-form-label [nzRequired]="true" [nzSpan]="6" nzFor="priority"
               >Priority</nz-form-label
             >
-            <nz-form-control>
+            <nz-form-control nzErrorTip="please select priority">
               <nz-select
                 nzShowSearch
                 nzPlaceHolder="Select Priority"
@@ -26,11 +28,11 @@
           </nz-form-item>
         </div>
 
-        <!-- Types -->
+        <!-- -------------------------------- Types -------------------------------- -->
         <div nz-col [nzSpan]="8">
           <nz-form-item>
             <nz-form-label [nzRequired]="true" nzFor="type">Type</nz-form-label>
-            <nz-form-control>
+            <nz-form-control nzErrorTip="please select type">
               <nz-select nzShowSearch nzPlaceHolder="Select Type" name="type" formControlName="type">
                 <nz-option
                   *ngFor="let type of typeList"
@@ -42,7 +44,7 @@
           </nz-form-item>
         </div>
 
-        <!-- Assigned To -->
+        <!-- ----------------------------- Assigned To ----------------------------- -->
         <div nz-col [nzSpan]="8">
           <nz-form-item>
             <nz-form-label nzFor="assignedTo">AssignedTo(s)</nz-form-label>
@@ -65,13 +67,13 @@
         </div>
       </div>
       <div nz-row [nzGutter]="24">
-        <!-- Client -->
+        <!-- ------------------------------- Client -------------------------------- -->
         <div nz-col [nzSpan]="24">
           <nz-form-item>
             <nz-form-label [nzRequired]="true" [nzSpan]="2" nzFor="clientID"
               >Client</nz-form-label
             >
-            <nz-form-control>
+            <nz-form-control nzErrorTip="please select client">
               <nz-select
                 nzShowSearch
                 nzPlaceHolder="Select Client"
@@ -91,13 +93,13 @@
       </div>
 
       <div nz-row [nzGutter]="24">
-        <!-- Module -->
+        <!-- ------------------------------- Module -------------------------------- -->
         <div nz-col [nzSpan]="24">
           <nz-form-item>
             <nz-form-label [nzRequired]="true" [nzSpan]="2" nzFor="module"
               >Module</nz-form-label
             >
-            <nz-form-control>
+            <nz-form-control nzErrorTip="please select module">
               <nz-select
                 nzShowSearch
                 nzPlaceHolder="Select Module"
@@ -117,13 +119,13 @@
       </div>
 
       <div nz-row [nzGutter]="24">
-        <!-- Subject -->
+        <!-- ------------------------------- Subject ------------------------------- -->
         <div nz-col [nzSpan]="24">
           <nz-form-item>
             <nz-form-label [nzRequired]="true" [nzSpan]="2" nzFor="subject"
               >Subject</nz-form-label
             >
-            <nz-form-control>
+            <nz-form-control nzErrorTip="please enter subject">
               <input
                 nz-input
                 name="subject"
@@ -138,7 +140,7 @@
       </div>
 
       <div nz-row [nzGutter]="24">
-        <!-- Problem Description -->
+        <!-- ------------------------- Problem Description ------------------------- -->
         <div nz-col [nzSpan]="24">
           <nz-form-item>
             <nz-form-label
@@ -147,7 +149,7 @@
               nzFor="problemDescription"
               >Problem Description</nz-form-label
             >
-            <nz-form-control>
+            <nz-form-control nzErrorTip="please enter problem description">
               <textarea
                 nz-input
                 name="problemDescription"
@@ -161,7 +163,7 @@
         </div>
       </div>
 
-      <!-- Upload -->
+      <!-- ------------------------------- Upload -------------------------------- -->
       <div nz-row [nzGutter]="24">
         <div nz-col [nzSpan]="24">
           <nz-upload
@@ -185,9 +187,9 @@
           </nz-upload>
         </div>
       </div>
-
-      <!-- Attachments List -->
-      <div nz-row [nzGutter]="24">
+      <br/>
+      <!-- -------------------------- Attachments List --------------------------- -->
+      <div nz-row [nzGutter]="24" *ngIf="attachments">
         <div nz-col [nzSpan]="24">
           <nz-table [nzData]="attachments" nzBordered [nzFrontPagination]="false">
             <thead>
@@ -204,7 +206,9 @@
                 <td>{{ attachment.type }}</td>
                 <td>{{ attachment.size / 1024 / 1024 | number : '1.2-3' }} MB</td>
                 <td>
-                  <button type="button" nz-button nzType="primary" [nzSize]="small" nzDanger (click)="deleteAttachments(attachment)"><em nz-icon nzType="delete"></em>Delete</button>
+                  <button type="button" nz-button nzType="primary" [nzSize]="small" nzDanger (click)="deleteAttachments(attachment)">
+                    <em nz-icon nzType="delete"></em>Delete
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -212,10 +216,10 @@
         </div>
       </div>
       <div nz-row nzJustify="end" [nzGutter]="24">
-        <!-- Buttons -->
+        <!-- ------------------------------- Buttons ------------------------------- -->
         <div nz-col [nzSpan]="24" class="filter_buttons">
           <button nz-button nzType="primary" [nzLoading]="isLoading">Save</button>
-          <button type="button" nz-button nzType="default" (click)="clear()">Clear</button>
+          <button type="button" nz-button nzType="default" (click)="clearForm()">Clear</button>
         </div>
       </div>
     </form>

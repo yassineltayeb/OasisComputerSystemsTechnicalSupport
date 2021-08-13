@@ -8,8 +8,7 @@ import { StaffProfileService } from 'src/app/services/staff_profile/staff-profil
 import { TicketService } from 'src/app/services/ticket/ticket.service';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { Ticket } from 'src/app/models/Ticket';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { jsonToFormData } from 'src/app/helpers/helpers';
+import { jsonToFormData, validateAllFormFields } from 'src/app/helpers/helpers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
@@ -20,8 +19,11 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class TicketsNewComponent implements OnInit {
 
-  ticketForm: FormGroup;
+  /* -------------------------------------------------------------------------- */
+  /*                                  Variables                                 */
+  /* -------------------------------------------------------------------------- */
 
+  ticketForm: FormGroup;
   ticketPriorities: KeyValuePairs[] = [];
   typeList: KeyValuePairs[] = [];
   accountManagers: StaffProfile[] = [];
@@ -32,42 +34,33 @@ export class TicketsNewComponent implements OnInit {
   isLoading = false;
   isLoadingModule = false;
 
+  /* -------------------------------------------------------------------------- */
+  /*                                 Constructor                                */
+  /* -------------------------------------------------------------------------- */
+
   constructor(private ticketService: TicketService,
               private staffProfileService: StaffProfileService,
               private clientService: ClientService,
               private notification: NzNotificationService,
               private fb: FormBuilder) { }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                  ngOnInit                                  */
+  /* -------------------------------------------------------------------------- */
+
   ngOnInit(): void {
     this.initForm();
-
-    // Get Ticket Priorities
-    this.ticketService.getTicketPrioritiesList().subscribe((result: KeyValuePairs[]) => {
-      this.ticketPriorities = result;
-    });
-
-    // Get Type List
-    this.ticketService.getTicketTypesList().subscribe((result: KeyValuePairs[]) => {
-      this.typeList = result;
-    });
-
-    // Get Ticket Account Managers
-    this.staffProfileService.getStaffProfilesList().subscribe((result: StaffProfile[]) => {
-      this.accountManagers = result;
-    });
-
-    // Get Clients
-    this.clientService.getClients().subscribe((result: Client[]) => {
-      this.clients = result;
-    });
-
-    // Get Status List
-    this.ticketService.getTicketStatusList().subscribe((result: KeyValuePairs[]) => {
-      this.statusList = result;
-    });
+    this.getTicketPrioritiesList();
+    this.getTicketTypesList();
+    this.getStaffProfilesList();
+    this.getClients();
   }
 
-  // Initialize login from
+  /* -------------------------------------------------------------------------- */
+  /*                                  Functions                                 */
+  /* -------------------------------------------------------------------------- */
+
+  /* ----------------------------- Initialize From ---------------------------- */
   initForm(): void {
     this.ticketForm = this.fb.group({
       assignedTo: [null],
@@ -79,23 +72,56 @@ export class TicketsNewComponent implements OnInit {
       problemDescription: [null, [Validators.required]],
       submittedBy: [null],
     });
-
   }
 
-  // Get Client Modules
+  /* -------------------------- Get Ticket Priorities ------------------------- */
+  getTicketPrioritiesList(): void {
+    this.ticketService.getTicketPrioritiesList().subscribe((result: KeyValuePairs[]) => {
+      this.ticketPriorities = result;
+    });
+  }
+
+  /* ------------------------------ Get Type List ----------------------------- */
+  getTicketTypesList(): void {
+    this.ticketService.getTicketTypesList().subscribe((result: KeyValuePairs[]) => {
+      this.typeList = result;
+    });
+  }
+
+  /* ----------------------- Get Ticket Account Managers ---------------------- */
+  getStaffProfilesList(): void {
+    this.staffProfileService.getStaffProfilesList().subscribe((result: StaffProfile[]) => {
+      this.accountManagers = result;
+    });
+  }
+
+  /* ------------------------------- Get Clients ------------------------------ */
+  getClients(): void {
+    this.clientService.getClients().subscribe((result: Client[]) => {
+      this.clients = result;
+    });
+  }
+
+  /* --------------------------- Get Client Modules --------------------------- */
   getClientModules(): void {
     this.isLoadingModule = true;
 
-    this.ticketService.getTicketsClientModules(this.ticketForm.controls.clientID.value).subscribe((result: SystemModule[]) => {
-      this.ticketsModules = result;
-    });
+    if (this.ticketForm.controls.clientID.value != null) {
+      this.ticketService.getTicketsClientModules(this.ticketForm.controls.clientID.value).subscribe((result: SystemModule[]) => {
+        this.ticketsModules = result;
+      });
+    }
 
     this.isLoadingModule = false;
-
   }
 
-  // Submit Form
+  /* ------------------------------- Submit Form ------------------------------ */
   submitForm(ticket: Ticket): void {
+
+    if (this.ticketForm.invalid) {
+      validateAllFormFields(this.ticketForm);
+      return;
+    }
 
     this.isLoading = true;
 
@@ -103,14 +129,16 @@ export class TicketsNewComponent implements OnInit {
 
     formData = jsonToFormData(ticket);
 
-    this.attachments.forEach(item => {
-      formData.append('attachments', item.originFileObj);
-    });
+    if (this.attachments != null) {
+      this.attachments.forEach(item => {
+        formData.append('attachments', item.originFileObj);
+      });
+    }
 
     this.ticketService.addTicket(formData).subscribe(
       result => {
         this.isLoading = false;
-        this.ticketForm.reset();
+        this.clearForm();
         this.notification.success('Tickets', 'Saved successfully');
       }, err => {
         this.isLoading = false;
@@ -120,22 +148,21 @@ export class TicketsNewComponent implements OnInit {
       });
   }
 
-  // Upload Files
+  /* ------------------------------ Upload Files ------------------------------ */
   handleChange({ file, fileList }: NzUploadChangeParam): void {
     this.attachments = fileList;
-    console.log(this.attachments);
   }
 
-  // Clear Form
-  clear(): void {
+  /* ------------------------------- Clear Form ------------------------------- */
+  clearForm(): void {
     this.isLoading = false;
     this.ticketForm.reset();
+    this.ticketForm.clearValidators();
+    this.attachments = null;
   }
 
-  // Delete Attachment
+  /* ---------------------------- Delete Attachment --------------------------- */
   deleteAttachments(file: NzUploadFile): void {
-    console.log(file);
     this.attachments.splice(this.attachments.indexOf(file), 1);
   }
-
 }

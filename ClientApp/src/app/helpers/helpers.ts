@@ -1,3 +1,10 @@
+import { FormControl, FormGroup } from '@angular/forms';
+
+/* -------------------------------------------------------------------------- */
+/*                                   Helpers                                  */
+/* -------------------------------------------------------------------------- */
+
+/* ----------------------------- Build Form Data ---------------------------- */
 function buildFormData(formData, data, parentKey): void {
   if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
     Object.keys(data).forEach(key => {
@@ -10,10 +17,24 @@ function buildFormData(formData, data, parentKey): void {
   }
 }
 
+/* ---------------------------- Json To Form Data --------------------------- */
 export function jsonToFormData(data): FormData {
   const formData = new FormData();
 
   buildFormData(formData, data, null);
 
   return formData;
+}
+
+/* ------------------------ Validate All Form Fields ------------------------ */
+export function validateAllFormFields(formGroup: FormGroup): void {
+  Object.keys(formGroup.controls).forEach(field => {
+    const control = formGroup.get(field);
+    if (control instanceof FormControl) {
+      control.markAsTouched({ onlySelf: true });
+      control.updateValueAndValidity({ onlySelf: true });
+    } else if (control instanceof FormGroup) {
+      this.validateAllFormFields(control);
+    }
+  });
 }

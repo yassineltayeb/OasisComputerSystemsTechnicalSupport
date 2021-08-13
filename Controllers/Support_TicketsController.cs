@@ -7,18 +7,30 @@ using System.Threading.Tasks;
 
 namespace Oasis.TechnicalSupport.Web.Controllers
 {
+    /* -------------------------------------------------------------------------- */
+    /*                         Support_Tickets Controller                         */
+    /* -------------------------------------------------------------------------- */
     [Authorize]
     [Route("api/tickets")]
     [ApiController]
     public class Support_TicketsController : ControllerBase
     {
+        /* -------------------------------------------------------------------------- */
+        /*                                  Variables                                 */
+        /* -------------------------------------------------------------------------- */
         private readonly ISupport_TicketsRepository support_TicketsRepository;
 
+        /* -------------------------------------------------------------------------- */
+        /*                                  Functions                                 */
+        /* -------------------------------------------------------------------------- */
+        
+        /* ------------------------------- Constructor ------------------------------ */
         public Support_TicketsController(ISupport_TicketsRepository support_TicketsRepository)
         {
             this.support_TicketsRepository = support_TicketsRepository;
         }
 
+        /* ----------------------------- Add New Ticket ----------------------------- */
         [HttpPost]
         public async Task<IActionResult> AddTicket([FromForm] Support_TicketsToRegister ticketToAdd)
         {
@@ -28,6 +40,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(ticket);
         }
 
+        /* ---------------------------- Get Ticket By Id ---------------------------- */
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTicketById(int id)
         {
@@ -36,7 +49,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(ticket);
         }
 
-
+        /* --------------------------- Get Active Tickets --------------------------- */
         [HttpGet("activetickets")]
         public async Task<IActionResult> GetActiveTickets()
         {
@@ -45,6 +58,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(activeTickets);
         }
 
+        /* --------------------------- Get Tickets Status --------------------------- */
         [HttpGet("ticketsstatus")]
         public async Task<IActionResult> GetTicketsStatus()
         {
@@ -53,6 +67,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(activeTickets);
         }
 
+        /* ------------------------ Get Active Tickets Status ----------------------- */
         [HttpGet("activeticketsstatus")]
         public async Task<IActionResult> GetActiveTicketsStatus()
         {
@@ -61,6 +76,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(activeTickets);
         }
 
+        /* ---------------------------- Get Tickets List ---------------------------- */
         [HttpGet("ticketslist")]
         public async Task<IActionResult> GetTicketsList([FromQuery] Support_TicketsParameters support_TicketsParameters)
         {
@@ -81,6 +97,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(tickets);
         }
 
+        /* ----------------------- Get Ticket Priorities List ----------------------- */
         [HttpGet("ticketprioritieslist")]
         public async Task<IActionResult> GetTicketPrioritiesList()
         {
@@ -89,6 +106,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(ticketPriorities);
         }
 
+        /* -------------------------- Get Ticket Types List ------------------------- */
         [HttpGet("tickettypeslist")]
         public async Task<IActionResult> GetTicketTypesList()
         {
@@ -97,6 +115,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(ticketTypes);
         }
 
+        /* ------------------------- Get Ticket Modules List ------------------------ */
         [HttpGet("ticketmoduleslist")]
         public async Task<IActionResult> GetTicketModulesList(int clientID)
         {
@@ -104,7 +123,8 @@ namespace Oasis.TechnicalSupport.Web.Controllers
 
             return Ok(ticketModules);
         }
-        
+
+        /* --------------------- Get Ticket Client Modules List --------------------- */
         [HttpGet("ticketclientmoduleslist/{clientID}")]
         public async Task<IActionResult> GetTicketClientModulesList(int clientID)
         {
@@ -113,6 +133,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(ticketModules);
         }
 
+        /* ------------------------- Get Ticket Status List ------------------------- */
         [HttpGet("ticketstatuslist")]
         public async Task<IActionResult> GetTicketStatusList()
         {
