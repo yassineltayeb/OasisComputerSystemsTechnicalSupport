@@ -6,6 +6,8 @@ import { StaffProfile } from 'src/app/models/StaffProfile';
 import { SystemModule } from 'src/app/models/SystemModule';
 import { TicketList } from 'src/app/models/TicketList';
 import { TicketsParameters } from 'src/app/models/TicketsParameters';
+import { TicketStatus } from 'src/app/models/TicketStatus';
+import { TicketTypes } from 'src/app/models/TicketTypes';
 import { StaffProfileService } from 'src/app/services/staff_profile/staff-profile.service';
 import { TicketService } from 'src/app/services/ticket/ticket.service';
 
@@ -16,6 +18,9 @@ import { TicketService } from 'src/app/services/ticket/ticket.service';
 })
 export class TicketsListComponent implements OnInit {
 
+  /* -------------------------------------------------------------------------- */
+  /*                                  Variables                                 */
+  /* -------------------------------------------------------------------------- */
   ticketList: TicketList[] = [];
   ticketsModules: SystemModule[] = [];
   accountManagers: StaffProfile[] = [];
@@ -44,45 +49,69 @@ export class TicketsListComponent implements OnInit {
     sortBy: 'type',
     IsSortAscending: true,
   };
-  moduleSelectedValues = [];
-  accountManagerSelectedValues = [];
-  assignedToSelectedValues = [];
-  statusSelectedValues = [];
-  typeSelectedValues = [];
   loading = true;
+  expandSet = new Set<number>();
 
+  /* -------------------------------------------------------------------------- */
+  /*                                 constructor                                */
+  /* -------------------------------------------------------------------------- */
   constructor(private ticketService: TicketService, private staffProfileService: StaffProfileService) { }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                  ngOnInit                                  */
+  /* -------------------------------------------------------------------------- */
   ngOnInit(): void {
-    // Get Ticket Modules
-    this.ticketService.getTicketsModules().subscribe((result: SystemModule[]) => {
-      this.ticketsModules = result;
-    });
+    this.getTicketsModules();
+    this.getStaffProfilesList();
+    this.getTicketStatusList();
+    this.getTicketTypesList();
 
-    // Get Ticket Account Managers
-    this.staffProfileService.getStaffProfilesList().subscribe((result: StaffProfile[]) => {
-      this.accountManagers = result;
-    });
+    // Initialize Ticket Status
+    this.ticketsParameters.status.push(TicketStatus.WAITING);
+    this.ticketsParameters.status.push(TicketStatus.REOPENED);
+    this.ticketsParameters.status.push(TicketStatus.WORK_IN_PROGRESS);
+    this.ticketsParameters.status.push(TicketStatus.PENDING_DELIVERY);
+    this.ticketsParameters.status.push(TicketStatus.PENDING_ON_CUSTOMER);
 
-    // Get Status List
-    this.ticketService.getTicketStatusList().subscribe((result: KeyValuePairs[]) => {
-      this.statusList = result;
-    });
+    // Initialize Ticket Types
+    this.ticketsParameters.type.push(TicketTypes.TECHNICAL_SUPPORT);
+    this.ticketsParameters.type.push(TicketTypes.CHANGE_REQUEST);
+    this.ticketsParameters.type.push(TicketTypes.SYSTEM_BUG);
 
-    // Get Type List
-    this.ticketService.getTicketTypesList().subscribe((result: KeyValuePairs[]) => {
-      this.typeList = result;
-    });
 
     this.searchTickets();
   }
 
-  // Get Tickets
+  /* --------------------------- Get Ticket Modules --------------------------- */
+  getTicketsModules(): void {
+    this.ticketService.getTicketsModules().subscribe((result: SystemModule[]) => {
+      this.ticketsModules = result;
+    });
+  }
+
+  /* ----------------------- Get Ticket Account Managers ---------------------- */
+  getStaffProfilesList(): void {
+    this.staffProfileService.getStaffProfilesList().subscribe((result: StaffProfile[]) => {
+      this.accountManagers = result;
+    });
+  }
+
+  /* ----------------------------- Get Status List ---------------------------- */
+  getTicketStatusList(): void {
+    this.ticketService.getTicketStatusList().subscribe((result: KeyValuePairs[]) => {
+      this.statusList = result;
+    });
+  }
+
+  /* ------------------------------ Get Type List ----------------------------- */
+  getTicketTypesList(): void {
+    this.ticketService.getTicketTypesList().subscribe((result: KeyValuePairs[]) => {
+      this.typeList = result;
+    });
+  }
+
+  /* ------------------------------- Get Tickets ------------------------------ */
   searchTickets(): void {
-    // this.ticketService.getTickets(this.ticketsParameters).subscribe((result: TicketList[]) => {
-    //   this.ticketList = result;
-    //   console.log('Tickets', this.ticketList);
-    // });
     this.loading = true;
     this.ticketService.getTickets(this.ticketsParameters).subscribe(result => {
       this.ticketList = result.body;
@@ -93,8 +122,16 @@ export class TicketsListComponent implements OnInit {
     });
   }
 
+  /* --------------------------- Query Params Change -------------------------- */
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     this.searchTickets();
+  }
+
+  onExpandChange(id: number, checked: boolean): void {
+    if (checked) {
+      this.expandSet.add(id);
+    } else {
+      this.expandSet.delete(id);
+    }
   }
 }

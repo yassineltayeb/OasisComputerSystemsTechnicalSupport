@@ -15,15 +15,23 @@ export class LoginComponent implements OnInit {
   showIncorrectUsernameOrPassword: false;
   isLoading = false;
 
-  constructor(private authService: AuthService,
-              private notification: NzNotificationService,
-              private fb: FormBuilder) { }
+  /* -------------------------------------------------------------------------- */
+  /*                                 constructor                                */
+  /* -------------------------------------------------------------------------- */
+  constructor(private authService: AuthService, private notification: NzNotificationService, private fb: FormBuilder) { }
 
+  /* -------------------------------------------------------------------------- */
+  /*                                  ngOnInit                                  */
+  /* -------------------------------------------------------------------------- */
   ngOnInit(): void {
     this.initForm();
   }
 
-  // Initialize login from
+  /* -------------------------------------------------------------------------- */
+  /*                                  Functions                                 */
+  /* -------------------------------------------------------------------------- */
+
+  /* -------------------------- Initialize login from ------------------------- */
   initForm(): void {
     this.loginForm = this.fb.group({
       username: [null, [Validators.required]],
@@ -32,7 +40,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  // Login
+  /* ---------------------------------- Login --------------------------------- */
   login(user: UserLogin): void {
     this.showIncorrectUsernameOrPassword = false;
     this.isLoading = true;

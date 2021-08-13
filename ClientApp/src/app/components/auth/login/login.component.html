@@ -12,7 +12,9 @@
     <div class="login-card-right col-md-6">
       <div class="login-card-right-body">
 
-        <!-- Ticket Form -->
+        <!-- ----------------------------------------------------------------------- -->
+        <!--                               Ticket Form                               -->
+        <!-- ----------------------------------------------------------------------- -->
         <form nz-form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
           <div class="system-title-wrapper">
             <h3 class="system-title">Ticket Management Service</h3>
@@ -23,7 +25,7 @@
           </div>
           <br/>
 
-          <!-- Username -->
+          <!-- ------------------------------ Username ------------------------------- -->
           <nz-form-item>
             <nz-form-control nzErrorTip="Please input your username!">
               <nz-input-group nzPrefixIcon="user">
@@ -32,7 +34,7 @@
             </nz-form-control>
           </nz-form-item>
 
-          <!-- Password -->
+          <!-- ------------------------------ Password ------------------------------- -->
           <nz-form-item>
             <nz-form-control nzErrorTip="Please input your Password!">
               <nz-input-group nzPrefixIcon="lock">
@@ -41,10 +43,10 @@
             </nz-form-control>
           </nz-form-item>
 
-          <!-- Incorrect Username or Password -->
+          <!-- ------------------- Incorrect Username or Password -------------------- -->
           <nz-alert *ngIf="showIncorrectUsernameOrPassword" nzType="error" nzMessage="Incorrect Username or Password" nzShowIcon>Incorrect Username or Password</nz-alert>
 
-          <!-- Remember Me -->
+          <!-- ----------------------------- Remember Me ----------------------------- -->
           <div nz-row class="login-form-margin">
             <div nz-col [nzSpan]="12">
               <label nz-checkbox>
@@ -53,7 +55,7 @@
             </div>
           </div>
 
-          <!-- Login Button -->
+          <!-- ------------------------------- Buttons ------------------------------- -->
           <button [nzLoading]="isLoading" nz-button class="login-form-button login-form-margin" nzType="primary" type="submit" [disabled]="!loginForm.valid"><em nz-icon nzType="login"></em>Login</button>
         </form>
       </div>
