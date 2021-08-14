@@ -191,7 +191,7 @@
       <!-- -------------------------- Attachments List --------------------------- -->
       <div nz-row [nzGutter]="24" *ngIf="attachments">
         <div nz-col [nzSpan]="24">
-          <nz-table [nzData]="attachments" nzBordered [nzFrontPagination]="false">
+          <nz-table nzTitle="Attachments" [nzData]="attachments" nzBordered [nzFrontPagination]="false">
             <thead>
               <tr>
                 <th>File Name</th>
@@ -206,7 +206,7 @@
                 <td>{{ attachment.type }}</td>
                 <td>{{ attachment.size / 1024 / 1024 | number : '1.2-3' }} MB</td>
                 <td>
-                  <button type="button" nz-button nzType="primary" [nzSize]="small" nzDanger (click)="deleteAttachments(attachment)">
+                  <button type="button" nz-button nzType="primary" [nzSize]="'small'" nzDanger (click)="deleteAttachments(attachment)">
                     <em nz-icon nzType="delete"></em>Delete
                   </button>
                 </td>

@@ -38,3 +38,18 @@ export function validateAllFormFields(formGroup: FormGroup): void {
     }
   });
 }
+
+
+/* ---------------------- Convert Objet To Query String --------------------- */
+export function toQueryString(obj: any): string {
+  const parts = [];
+
+  for (const property of Object.keys(obj)) {
+    const value = obj[property];
+    if (value !== null && value !== undefined) {
+      parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value));
+    }
+  }
+
+  return parts.join('&');
+}

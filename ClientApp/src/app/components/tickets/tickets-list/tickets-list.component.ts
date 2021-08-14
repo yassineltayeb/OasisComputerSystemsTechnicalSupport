@@ -16,6 +16,11 @@ import { TicketService } from 'src/app/services/ticket/ticket.service';
   templateUrl: './tickets-list.component.html',
   styleUrls: ['./tickets-list.component.css']
 })
+
+/* -------------------------------------------------------------------------- */
+/*                                Tickets List                                */
+/* -------------------------------------------------------------------------- */
+
 export class TicketsListComponent implements OnInit {
 
   /* -------------------------------------------------------------------------- */

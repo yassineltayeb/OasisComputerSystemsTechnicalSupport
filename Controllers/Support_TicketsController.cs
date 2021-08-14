@@ -41,10 +41,10 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         }
 
         /* ---------------------------- Get Ticket By Id ---------------------------- */
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetTicketById(int id)
+        [HttpGet("{ticketID}")]
+        public async Task<IActionResult> GetTicketById(int ticketID)
         {
-            var ticket = await support_TicketsRepository.GetTicketById(id);
+            var ticket = await support_TicketsRepository.GetTicketById(ticketID);
 
             return Ok(ticket);
         }

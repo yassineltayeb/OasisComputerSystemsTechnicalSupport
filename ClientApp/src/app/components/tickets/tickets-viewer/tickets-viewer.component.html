@@ -1,41 +1,74 @@
-<div class="row">
-  <nz-card >
-    <nz-descriptions [nzColumn]="2" [nzSize]="'small'" nzTitle="Ticket Details" nzBordered>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="Ticket No.">1001</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="Status" [nzSpan]="3">
-        <nz-badge nzStatus="processing" nzText="Running"></nz-badge>
-      </nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="Priority">
-        <nz-badge nzStatus="processing" nzText="Running"></nz-badge>
-      </nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="Type">Technical Support</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="Client">195 | Client Name</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="Module">Module</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="Subject">Subject</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="Problem Description">
-        Data disk type: MongoDB
-        <br />
-        Database version: 3.4
-        <br />
-        Package: dds.mongo.mid
-        <br />
-        Storage space: 10 GB
-        <br />
-        Replication_factor:3
-        <br />
-        Region: East China 1
-        <br />
-      </nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="1" nzTitle="Submitted By">Submitted By</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="1" nzTitle="Submitted On">Submitted On</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="1" nzTitle="Closed By">Closed By</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="1" nzTitle="Closed On">Closed On</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="1" nzTitle="Approved By">Approved By</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="1" nzTitle="Approved On">Approved On</nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="Duration">Duration</nz-descriptions-item>
-
-    </nz-descriptions>
-
-  </nz-card>
-
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="20">
+    <nz-card>
+      <nz-descriptions
+        [nzColumn]="2"
+        [nzSize]="'small'"
+        nzTitle="Ticket Details"
+        nzBordered
+      >
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Ticket No.">{{ ticket.ticketNo }} </nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Status" [nzSpan]="3">
+          <nz-badge nzStatus="processing" nzText="{{ ticket.status }}"></nz-badge>
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Priority">
+          <nz-badge nzStatus="processing" nzText="{{ ticket.priority }}"></nz-badge>
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Type">{{ ticket.type }} </nz-descriptions-item
+        >
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Client">{{ ticket.clientID}} | {{ ticket.fullName }}</nz-descriptions-item
+        >
+        <nz-descriptions-item [nzSpan]="2" nzTitle="{{ ticket.module }}"
+          >Module</nz-descriptions-item
+        >
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Subject">{{ ticket.subject }}</nz-descriptions-item
+        >
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Problem Description">{{ ticket.problemDescription }}</nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="1" nzTitle="Submitted By">{{ ticket.submittedBy }}</nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="1" nzTitle="Submitted On">{{ ticket.submittedOn | date: 'short' }}</nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="1" nzTitle="Closed By">{{ ticket.closedBy }}</nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="1" nzTitle="Closed On">{{ ticket.closedOn | date: 'short'}}</nz-descriptions-item
+        >
+        <nz-descriptions-item [nzSpan]="1" nzTitle="Approved By">{{ ticket.approvedBy }}</nz-descriptions-item
+        >
+        <nz-descriptions-item [nzSpan]="1" nzTitle="Approved On"
+          >Approved On</nz-descriptions-item
+        >
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Duration"
+          >Duration</nz-descriptions-item
+        >
+      </nz-descriptions>
+    </nz-card>
+  </div>
+  <div nz-col [nzSpan]="20">
+  <br/>
+  <nz-table nzBordered nzTitle="Attachments" [nzFrontPagination]="false">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Type</th>
+          <th>Size</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>
+            <button
+              type="button"
+              nz-button
+              nzType="primary"
+              [nzSize]="'small'"
+              nzDanger
+            >
+              <em nz-icon nzType="delete"></em>Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </div>
