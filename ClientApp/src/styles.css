@@ -21,3 +21,33 @@ body {
   border-radius: 8px;
 }
 
+/* ------------------------------ Status Colors ----------------------------- */
+
+.waiting {
+  background-color: #e9cd80;
+}
+
+.reopened {
+  background-color: #ffac54;
+}
+
+.work_in_progress {
+  background-color: #43a0fa;
+}
+
+.pending_delivery {
+  background-color: #7fe3e3;
+}
+
+.pending_on_customer {
+  background-color: #857aff;
+}
+
+.resolved {
+  background-color: #74dba4;
+}
+
+.canceled {
+  background-color: #ff5e5e;
+}
+

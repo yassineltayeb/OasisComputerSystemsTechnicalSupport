@@ -53,3 +53,28 @@ export function toQueryString(obj: any): string {
 
   return parts.join('&');
 }
+
+/* -------------------- Get Difference Between Two Dates -------------------- */
+export function dateDiff(dateInterval: string, date1: Date, date2: Date, parseDate2: boolean): number {
+  let diff = 0;
+  if (parseDate2 === true) {
+    diff = Math.abs(parseDate(date1).getTime() - date2.getTime());
+  } else {
+    diff = Math.abs(parseDate(date1).getTime() - date2.getTime());
+  }
+  let diffDays = 0;
+  if (dateInterval === 'd' || dateInterval === 'day') {
+    diffDays = Math.ceil(diff / (1000 * 3600 * 24));
+  } else if (dateInterval === 'y' || dateInterval === 'year') {
+    diffDays = Math.ceil(diff / (1000 * 3600));
+  }
+
+  return diffDays;
+}
+
+/* -------------------- Parse a Date In yyyy-mm-dd format ------------------- */
+function parseDate(date): Date {
+  const parts = date.match(/(\d+)/g);
+  // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+  return new Date(parts[0], parts[1] - 1, parts[2]); // months are 0-based
+}

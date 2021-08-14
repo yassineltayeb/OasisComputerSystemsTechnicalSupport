@@ -27,3 +27,23 @@
   float: left;
 }
 
+.ticket-status {
+  width: 10%;
+}
+
+.ticket-status p {
+  color: white;
+  border-radius: 5px;
+  width: 100%;
+  padding: 3px 8px;
+  font-weight: 500;
+}
+
+.ticket-priority {
+  width: 10%;
+}
+
+.ticket-priority-badge {
+  transform: scale(1.7);
+  margin-left: 5px;
+}

@@ -1,42 +1,51 @@
-<div nz-row [nzGutter]="24">
+<div nz-row [nzGutter]="24" *ngIf="ticket">
   <div nz-col [nzSpan]="20">
     <nz-card>
-      <nz-descriptions
-        [nzColumn]="2"
-        [nzSize]="'small'"
-        nzTitle="Ticket Details"
-        nzBordered
-      >
+      <nz-descriptions [nzColumn]="2" [nzSize]="'small'" nzTitle="Ticket Details" nzBordered>
         <nz-descriptions-item [nzSpan]="2" nzTitle="Ticket No.">{{ ticket.ticketNo }} </nz-descriptions-item>
         <nz-descriptions-item [nzSpan]="2" nzTitle="Status" [nzSpan]="3">
-          <nz-badge nzStatus="processing" nzText="{{ ticket.status }}"></nz-badge>
+          <nz-badge class="ticket-status">
+            <p [ngClass]="{
+              'waiting' : ticket.status=='Waiting',
+              'reopened' : ticket.status=='Reopened',
+              'work_in_progress' : ticket.status=='Work In Progress',
+              'pending_delivery' : ticket.status=='Pending Delivery',
+              'pending_on_customer' : ticket.status=='Pending On Customer',
+              'resolved' : ticket.status=='Resolved',
+              'canceled' : ticket.status=='Canceled'
+              }">
+              {{ticket.status}}
+           </p>
+          </nz-badge>
         </nz-descriptions-item>
         <nz-descriptions-item [nzSpan]="2" nzTitle="Priority">
-          <nz-badge nzStatus="processing" nzText="{{ ticket.priority }}"></nz-badge>
+          <div *ngIf="ticket.priority==='High'">
+            <nz-badge nzColor="#ff766e" class="ticket-priority-badge" nzStatus="processing"></nz-badge>
+            High
+         </div>
+         <div *ngIf="ticket.priority==='Normal'">
+            <nz-badge nzColor="#f3f5a2" class="ticket-priority-badge" nzStatus="warning"></nz-badge>
+            Normal
+         </div>
+         <div *ngIf="ticket.priority==='Low'">
+            <nz-badge nzColor="#63acff" class="ticket-priority-badge" nzStatus="warning"></nz-badge>
+            Low
+         </div>
         </nz-descriptions-item>
         <nz-descriptions-item [nzSpan]="2" nzTitle="Type">{{ ticket.type }} </nz-descriptions-item
         >
-        <nz-descriptions-item [nzSpan]="2" nzTitle="Client">{{ ticket.clientID}} | {{ ticket.fullName }}</nz-descriptions-item
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Client">{{ ticket.clientID}} | {{ ticket.fullName }}</nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Module">{{ ticket.module }}</nz-descriptions-item
         >
-        <nz-descriptions-item [nzSpan]="2" nzTitle="{{ ticket.module }}"
-          >Module</nz-descriptions-item
-        >
-        <nz-descriptions-item [nzSpan]="2" nzTitle="Subject">{{ ticket.subject }}</nz-descriptions-item
-        >
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Subject">{{ ticket.subject }}</nz-descriptions-item>
         <nz-descriptions-item [nzSpan]="2" nzTitle="Problem Description">{{ ticket.problemDescription }}</nz-descriptions-item>
         <nz-descriptions-item [nzSpan]="1" nzTitle="Submitted By">{{ ticket.submittedBy }}</nz-descriptions-item>
         <nz-descriptions-item [nzSpan]="1" nzTitle="Submitted On">{{ ticket.submittedOn | date: 'short' }}</nz-descriptions-item>
         <nz-descriptions-item [nzSpan]="1" nzTitle="Closed By">{{ ticket.closedBy }}</nz-descriptions-item>
-        <nz-descriptions-item [nzSpan]="1" nzTitle="Closed On">{{ ticket.closedOn | date: 'short'}}</nz-descriptions-item
-        >
-        <nz-descriptions-item [nzSpan]="1" nzTitle="Approved By">{{ ticket.approvedBy }}</nz-descriptions-item
-        >
-        <nz-descriptions-item [nzSpan]="1" nzTitle="Approved On"
-          >Approved On</nz-descriptions-item
-        >
-        <nz-descriptions-item [nzSpan]="2" nzTitle="Duration"
-          >Duration</nz-descriptions-item
-        >
+        <nz-descriptions-item [nzSpan]="1" nzTitle="Closed On">{{ ticket.closedOn | date: 'short'}}</nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="1" nzTitle="Approved By">{{ ticket.approvedBy }}</nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="1" nzTitle="Approved On">{{ ticket.approvedOn | date: 'short'}}</nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="2" nzTitle="Duration">{{ calculateTicketDuration(ticket) }} day(s) </nz-descriptions-item>
       </nz-descriptions>
     </nz-card>
   </div>

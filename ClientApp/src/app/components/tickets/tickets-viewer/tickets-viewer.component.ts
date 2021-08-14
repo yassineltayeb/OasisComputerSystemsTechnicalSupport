@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
+import { dateDiff } from 'src/app/helpers/helpers';
 import { TicketList } from 'src/app/models/TicketList';
 import { TicketService } from 'src/app/services/ticket/ticket.service';
 
@@ -32,8 +34,9 @@ export class TicketsViewerComponent implements OnInit {
   /* -------------------------------------------------------------------------- */
 
   ngOnInit(): void {
-    const ticketID = this.getTicketIDFromQueryParam();
-    this.getTicketByID(ticketID);
+    this.getTicketIDFromQueryParam().subscribe(params => {
+      this.getTicketByID(params.ticketID);
+    });
   }
 
   /* -------------------------------------------------------------------------- */
@@ -41,17 +44,23 @@ export class TicketsViewerComponent implements OnInit {
   /* -------------------------------------------------------------------------- */
 
   /* --------------------- Get Ticket ID From QueryParams --------------------- */
-  getTicketIDFromQueryParam(): number {
-    return this.route.snapshot.params.ticketID;
+  getTicketIDFromQueryParam(): Observable<Params> {
+    return this.route.params;
   }
 
   /* ---------------------------- Get Ticket By ID ---------------------------- */
   getTicketByID(ticketID: number): void {
     this.ticketService.getTicketByID(ticketID).subscribe((result: TicketList) => {
-      console.log('ticket', result);
       this.ticket = result;
     });
   }
 
-
+  /* ------------------------ Calculate Ticket Duration ----------------------- */
+  calculateTicketDuration(ticket: TicketList): number {
+    if (ticket.closedOn != null) {
+      return dateDiff('d', ticket.submittedOn, ticket.closedOn, true);
+    } else {
+      return dateDiff('d', ticket.submittedOn, new Date(), false);
+    }
+  }
 }

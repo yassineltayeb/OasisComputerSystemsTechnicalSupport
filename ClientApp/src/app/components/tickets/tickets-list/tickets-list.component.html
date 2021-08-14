@@ -218,15 +218,15 @@
     ([nzPageIndex])="pagination.currentPage"
     (nzQueryParams)="onQueryParamsChange($event)"
     nzSize="small"
-    [nzScroll]="{ x: '300em', y: '1000px' }"
+    [nzScroll]="{ x: '350em', y: '1000px' }"
   >
     <thead>
       <tr>
         <th nzWidth="40px"></th>
         <th nzWidth="20em" id="assignedTo">Assigned To</th>
         <th nzWidth="6em" id="ticketNo">Ticket No.</th>
-        <th nzWidth="11em" id="status">Status</th>
-        <th nzWidth="5em" id="priority">Priority</th>
+        <th nzWidth="13em" id="status">Status</th>
+        <th nzWidth="7em" id="priority">Priority</th>
         <th nzWidth="10em" id="type">Type</th>
         <th nzWidth="30em" id="fullName">Client Name</th>
         <th id="module">Module</th>
@@ -244,12 +244,36 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let ticket of ticketList">
-        <tr>
+        <tr (dblclick)="showTicketDetails(ticket.sNo)">
           <td [nzExpand]="expandSet.has(ticket.sNo)" (nzExpandChange)="onExpandChange(ticket.sNo, $event)"></td>
           <td>{{ ticket.assignedTo }}</td>
           <td>{{ ticket.ticketNo }}</td>
-          <td>{{ ticket.status }}</td>
-          <td>{{ ticket.priority }}</td>
+          <td class="ticket-status">
+            <nz-badge>
+            <p [ngClass]="{
+               'waiting' : ticket.status=='Waiting',
+               'reopened' : ticket.status=='Reopened',
+               'work_in_progress' : ticket.status=='Work In Progress',
+               'pending_delivery' : ticket.status=='Pending Delivery',
+               'pending_on_customer' : ticket.status=='Pending On Customer',
+               'resolved' : ticket.status=='Resolved',
+               'canceled' : ticket.status=='Canceled'
+               }">
+               {{ticket.status}}
+            </p>
+            </nz-badge>
+         </td>
+          <td class="ticket-priority">
+            <div *ngIf="ticket.priority==='High'"><nz-badge nzColor="#ff766e" class="ticket-priority-badge" nzStatus="processing"></nz-badge>
+               High
+            </div>
+            <div *ngIf="ticket.priority==='Normal'"><nz-badge nzColor="#f3f5a2" class="ticket-priority-badge" nzStatus="warning"></nz-badge>
+               Normal
+            </div>
+            <div *ngIf="ticket.priority==='Low'"><nz-badge nzColor="#63acff" class="ticket-priority-badge" nzStatus="warning"></nz-badge>
+               Low
+            </div>
+         </td>
           <td>{{ ticket.type }}</td>
           <td>{{ ticket.fullName }}</td>
           <td>{{ ticket.module }}</td>

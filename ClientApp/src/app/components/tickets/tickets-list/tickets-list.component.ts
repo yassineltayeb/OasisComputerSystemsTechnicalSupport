@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { KeyValuePairs } from 'src/app/models/KeyValuePairs';
 import { Pagination } from 'src/app/models/Pagination';
@@ -60,7 +61,9 @@ export class TicketsListComponent implements OnInit {
   /* -------------------------------------------------------------------------- */
   /*                                 constructor                                */
   /* -------------------------------------------------------------------------- */
-  constructor(private ticketService: TicketService, private staffProfileService: StaffProfileService) { }
+  constructor(private ticketService: TicketService,
+              private staffProfileService: StaffProfileService,
+              private router: Router) { }
 
   /* -------------------------------------------------------------------------- */
   /*                                  ngOnInit                                  */
@@ -125,6 +128,11 @@ export class TicketsListComponent implements OnInit {
       console.log('pagination', this.pagination);
       this.loading = false;
     });
+  }
+
+  /* --------------------------- Show Ticket Details -------------------------- */
+  showTicketDetails(ticketID): void {
+    this.router.navigateByUrl('/tickets/details/' + ticketID);
   }
 
   /* --------------------------- Query Params Change -------------------------- */
