@@ -14,10 +14,12 @@ namespace Oasis.TechnicalSupport.Web.Helpers
             // //Model to DTo
             //Tickets
             CreateMap<Support_Ticket, Support_TicketsToRegister>();
+            CreateMap<Support_TicketsToList, Support_TicketsDetails>();
 
             // //Dto to Model
             //Tickets
             CreateMap<Support_TicketsToRegister, Support_Ticket>();
+            CreateMap<Support_TicketsDetails, Support_TicketsToList>();
         }
     }
 }

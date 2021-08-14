@@ -1,3 +1,5 @@
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+
 export interface TicketList {
   sNo: number;
   assignedTo: string;
@@ -22,4 +24,6 @@ export interface TicketList {
   closedOn: Date;
   approvedBy: string;
   approvedOn: Date;
+  attachments: NzUploadFile[];
+
 }

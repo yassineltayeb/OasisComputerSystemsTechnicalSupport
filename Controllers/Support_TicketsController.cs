@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Oasis.TechnicalSupport.Web.Helpers;
 using Oasis.TechnicalSupport.Web.Models;
 using Oasis.TechnicalSupport.Web.Repositories;
 using System.Threading.Tasks;
@@ -19,15 +21,18 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         /*                                  Variables                                 */
         /* -------------------------------------------------------------------------- */
         private readonly ISupport_TicketsRepository support_TicketsRepository;
+        private readonly IMapper _mapper;
+
 
         /* -------------------------------------------------------------------------- */
         /*                                  Functions                                 */
         /* -------------------------------------------------------------------------- */
         
         /* ------------------------------- Constructor ------------------------------ */
-        public Support_TicketsController(ISupport_TicketsRepository support_TicketsRepository)
+        public Support_TicketsController(ISupport_TicketsRepository support_TicketsRepository, IMapper mapper)
         {
             this.support_TicketsRepository = support_TicketsRepository;
+            _mapper = mapper;
         }
 
         /* ----------------------------- Add New Ticket ----------------------------- */
@@ -45,8 +50,10 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         public async Task<IActionResult> GetTicketById(int ticketID)
         {
             var ticket = await support_TicketsRepository.GetTicketById(ticketID);
+            var ticketDetails = _mapper.Map<Support_TicketsDetails>(ticket);
+            ticketDetails.Attachments = await Files.DownloadFiles(ticket.SNo);
 
-            return Ok(ticket);
+            return Ok(ticketDetails);
         }
 
         /* --------------------------- Get Active Tickets --------------------------- */

@@ -58,7 +58,7 @@ export function toQueryString(obj: any): string {
 export function dateDiff(dateInterval: string, date1: Date, date2: Date, parseDate2: boolean): number {
   let diff = 0;
   if (parseDate2 === true) {
-    diff = Math.abs(parseDate(date1).getTime() - date2.getTime());
+    diff = Math.abs(parseDate(date1).getTime() - parseDate(date2).getTime());
   } else {
     diff = Math.abs(parseDate(date1).getTime() - date2.getTime());
   }
