@@ -51,7 +51,7 @@
   </div>
   <div nz-col [nzSpan]="24">
   <br/>
-  <nz-table nzBordered nzTitle="Attachments" [nzFrontPagination]="false">
+  <nz-table nzBordered nzTitle="Attachments" [nzFrontPagination]="false" [nzData]="ticket.attachments">
       <thead>
         <tr>
           <th>File Name</th>
@@ -61,19 +61,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
+        <tr *ngFor="let attachment of ticket.attachments">
+          <td> {{ attachment.fileName }}</td>
+          <td> {{ attachment.type }} </td>
+          <td> {{ attachment.size / 1024 / 1024 | number : '1.2-3' }} MB </td>
           <td>
-            <button
-              type="button"
-              nz-button
-              nzType="primary"
-              [nzSize]="'small'"
-              nzDanger
-            >
-              <em nz-icon nzType="delete"></em>Delete
+            <button type="button" nz-button nzType="primary" [nzSize]="'small'" (click)="downloadTicketAttachment(attachment)">
+              <em nz-icon nzType="download"></em>
+            </button> |
+            <button type="button" nz-button nzType="primary" [nzSize]="'small'" nzDanger (click)="deleteTicketAttachments(attachment)">
+              <em nz-icon nzType="delete"></em>
             </button>
           </td>
         </tr>

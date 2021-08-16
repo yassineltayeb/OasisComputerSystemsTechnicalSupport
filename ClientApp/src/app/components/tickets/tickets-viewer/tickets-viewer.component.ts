@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { dateDiff } from 'src/app/helpers/helpers';
-import { TicketList } from 'src/app/models/TicketList';
+import { FileModel } from 'src/app/models/FileModel';
+import { TicketDetails } from 'src/app/models/TicketDetails';
 import { TicketService } from 'src/app/services/ticket/ticket.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class TicketsViewerComponent implements OnInit {
   /*                                  Variables                                 */
   /* -------------------------------------------------------------------------- */
 
-  ticket: TicketList;
+  ticket: TicketDetails;
 
   /* -------------------------------------------------------------------------- */
   /*                                 constructor                                */
@@ -50,7 +51,7 @@ export class TicketsViewerComponent implements OnInit {
 
   /* ---------------------------- Get Ticket By ID ---------------------------- */
   getTicketByID(ticketID: number): void {
-    this.ticketService.getTicketByID(ticketID).subscribe((result: TicketList) => {
+    this.ticketService.getTicketByID(ticketID).subscribe((result: TicketDetails) => {
       console.log('result', result
       );
       this.ticket = result;
@@ -58,11 +59,27 @@ export class TicketsViewerComponent implements OnInit {
   }
 
   /* ------------------------ Calculate Ticket Duration ----------------------- */
-  calculateTicketDuration(ticket: TicketList): number {
+  calculateTicketDuration(ticket: TicketDetails): number {
     if (ticket.closedOn != null) {
       return dateDiff('d', ticket.submittedOn, ticket.closedOn, true);
     } else {
       return dateDiff('d', ticket.submittedOn, new Date(), false);
     }
   }
+
+  /* --------------------------- Download Attachment -------------------------- */
+  downloadTicketAttachment(attachment: FileModel): void {
+    console.log('attachment', attachment);
+    this.ticketService.downloadTicketAttachment(this.ticket.sNo, attachment.fileName).subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  /* ---------------------------- Delete Attachment --------------------------- */
+  deleteTicketAttachments(attachment: FileModel): void {
+    ///
+  }
+
+
+
 }

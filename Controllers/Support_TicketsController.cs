@@ -27,7 +27,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         /* -------------------------------------------------------------------------- */
         /*                                  Functions                                 */
         /* -------------------------------------------------------------------------- */
-        
+
         /* ------------------------------- Constructor ------------------------------ */
         public Support_TicketsController(ISupport_TicketsRepository support_TicketsRepository, IMapper mapper)
         {
@@ -147,6 +147,15 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             var ticketStatuses = await support_TicketsRepository.GetTicketStatusList();
 
             return Ok(ticketStatuses);
+        }
+
+        /* ----------------------- Download Ticket Attachment ----------------------- */
+        [HttpGet("ticketattachment/{ticketID}/{filename}")]
+        public async Task<FileResult> DownloadTicketAttachment([FromQuery] int ticketID,[FromQuery]  string filename)
+        {
+            byte[] bytes = await Files.DownloadFile(ticketID, filename);
+
+            return File(bytes, "application/octet-stream", filename);
         }
     }
 }

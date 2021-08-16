@@ -120,7 +120,7 @@ namespace Oasis.TechnicalSupport.Web.Models
         public DateTime? ClosedOn { get; set; }
         public string ApprovedBy { get; set; }
         public DateTime? ApprovedOn { get; set; }
-        public List<IFormFile> Attachments { get; set; }
+        public List<FileModel> Attachments { get; set; }
     }
     public class Support_TicketsActiveTickets
     {

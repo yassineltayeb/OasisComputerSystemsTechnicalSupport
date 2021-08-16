@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -70,5 +70,13 @@ export class TicketService {
    /* ----------------------- Get Ticket Priorities List ----------------------- */
    getTicketPrioritiesList(): Observable<any> {
     return this.http.get(this.apiUrl + 'ticketprioritieslist');
+  }
+
+  downloadTicketAttachment(ticketID: number, filename: string): Observable<any> {
+    const params = new HttpParams()
+   .set('ticketID', ticketID.toString())
+   .set('filename', filename);
+
+    return this.http.get(this.apiUrl + 'ticketattachment/', { params });
   }
 }

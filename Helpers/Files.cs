@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
+using Microsoft.AspNetCore.Mvc;
+using Oasis.TechnicalSupport.Web.Models;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Oasis.TechnicalSupport.Web.Helpers
@@ -39,28 +39,34 @@ namespace Oasis.TechnicalSupport.Web.Helpers
         }
 
         /* ----------------------------- Download Files ----------------------------- */
-        public static async Task<List<IFormFile>> DownloadFiles(int id)
+        public static async Task<List<FileModel>> DownloadFiles(int id)
         {
             var destinationPath = Path.Combine(uploadPath, "Tickets/" + id);
 
             if (!Directory.Exists(destinationPath))
                 return null;
 
-            var files = Directory.GetFiles(destinationPath);
+            string[] filepaths = Directory.GetFiles(destinationPath);
 
-            var Attachments = new List<IFormFile>();
-
-            foreach (var file in files)
+            List<FileModel> list = new List<FileModel>();
+            foreach (string filepath in filepaths)
             {
-                using (var stream = System.IO.File.OpenRead(file))
+                list.Add(new FileModel
                 {
-                    var fileStream = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
-                    Attachments.Add(fileStream);
-                }
+                    FileName = Path.GetFileName(filepath),
+                    Type = Path.GetExtension(filepath),
+                    Size = new FileInfo(filepath).Length
+                });
             }
+            return await Task.Run(() => list);
 
-            return await Task.Run(() => Attachments);
+        }
 
+        public static async Task<byte[]> DownloadFile(int id, string filename)
+        {
+            var destinationPath = Path.Combine(uploadPath, "Tickets/" + id);
+            string path = Path.Combine(destinationPath, "/") + filename;
+            return await Task.Run(() => System.IO.File.ReadAllBytes(path));
         }
     }
 }
