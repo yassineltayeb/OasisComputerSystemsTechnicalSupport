@@ -150,12 +150,19 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         }
 
         /* ----------------------- Download Ticket Attachment ----------------------- */
-        [HttpGet("ticketattachment/{ticketID}/{filename}")]
-        public async Task<FileResult> DownloadTicketAttachment([FromQuery] int ticketID,[FromQuery]  string filename)
+        // [HttpGet("ticketattachment/{ticketID}/{filename}")]
+        [HttpGet("ticketattachment")]
+        public async Task<byte[]> DownloadTicketAttachment(int ticketID, string filename)
         {
-            byte[] bytes = await Files.DownloadFile(ticketID, filename);
+            var bytes = await Files.DownloadFile(ticketID, filename);
 
-            return File(bytes, "application/octet-stream", filename);
+            return bytes;
         }
+        //     public async Task<FileResult> DownloadTicketAttachment(int ticketID, string filename)
+        //     {
+        //         var bytes = await Files.DownloadFile(ticketID, filename);
+
+        //         return File(bytes, "application/octet-stream", filename);
+        //     }
     }
 }

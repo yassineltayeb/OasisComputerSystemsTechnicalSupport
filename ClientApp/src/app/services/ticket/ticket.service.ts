@@ -77,6 +77,14 @@ export class TicketService {
    .set('ticketID', ticketID.toString())
    .set('filename', filename);
 
-    return this.http.get(this.apiUrl + 'ticketattachment/', { params });
+    return this.http.get(this.apiUrl + 'ticketattachment/', { responseType: 'arraybuffer', params });
+  }
+
+  downloadTicketAttachment2(ticketID: number, filename: string): Observable<any> {
+    const params = new HttpParams()
+   .set('ticketID', ticketID.toString())
+   .set('filename', filename);
+
+    return this.http.get(this.apiUrl + 'ticketattachment/', { responseType: 'arraybuffer', params });
   }
 }

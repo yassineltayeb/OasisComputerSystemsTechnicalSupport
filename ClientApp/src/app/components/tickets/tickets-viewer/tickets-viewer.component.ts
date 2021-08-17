@@ -5,6 +5,8 @@ import { dateDiff } from 'src/app/helpers/helpers';
 import { FileModel } from 'src/app/models/FileModel';
 import { TicketDetails } from 'src/app/models/TicketDetails';
 import { TicketService } from 'src/app/services/ticket/ticket.service';
+import * as download from 'downloadjs';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-tickets-viewer',
@@ -71,7 +73,23 @@ export class TicketsViewerComponent implements OnInit {
   downloadTicketAttachment(attachment: FileModel): void {
     console.log('attachment', attachment);
     this.ticketService.downloadTicketAttachment(this.ticket.sNo, attachment.fileName).subscribe(result => {
-      console.log(result);
+      // console.log('file result', result);
+      // download(result, attachment.fileName, attachment.type);
+    });
+
+    this.ticketService.downloadTicketAttachment2(this.ticket.sNo, attachment.fileName).subscribe(blob => {
+      console.log('file result', blob);
+      const str = 'hello world', arr = new Uint8Array(str.length);
+      // tslint:disable-next-line:typedef
+      str.split('').forEach(function(a, b) {
+        arr[b] = a.charCodeAt();
+      });
+
+      console.log(arr);
+      download(arr, attachment.fileName);
+
+      // const file = new Blob([blob], { type: 'text/plain' });
+      // saveAs(file, attachment.fileName);
     });
   }
 

@@ -64,9 +64,9 @@ namespace Oasis.TechnicalSupport.Web.Helpers
 
         public static async Task<byte[]> DownloadFile(int id, string filename)
         {
-            var destinationPath = Path.Combine(uploadPath, "Tickets/" + id);
-            string path = Path.Combine(destinationPath, "/") + filename;
-            return await Task.Run(() => System.IO.File.ReadAllBytes(path));
+            var destinationPath = Path.Combine(uploadPath, "Tickets\\"  + id, filename);
+            // var path = Path.Combine(destinationPath, "\\", filename);
+            return await Task.Run(() => System.IO.File.ReadAllBytes(destinationPath));
         }
     }
 }
