@@ -39,9 +39,9 @@ namespace Oasis.TechnicalSupport.Web.Helpers
         }
 
         /* ----------------------------- Download Files ----------------------------- */
-        public static async Task<List<FileModel>> DownloadFiles(int id)
+        public static async Task<List<FileModel>> GetFilesList(int id)
         {
-            var destinationPath = Path.Combine(uploadPath, "Tickets/" + id);
+            var destinationPath = Path.Combine(uploadPath, "Tickets\\" + id);
 
             if (!Directory.Exists(destinationPath))
                 return null;
@@ -53,6 +53,7 @@ namespace Oasis.TechnicalSupport.Web.Helpers
             {
                 list.Add(new FileModel
                 {
+                    Url = filepath,
                     FileName = Path.GetFileName(filepath),
                     Type = Path.GetExtension(filepath),
                     Size = new FileInfo(filepath).Length

@@ -51,7 +51,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         {
             var ticket = await support_TicketsRepository.GetTicketById(ticketID);
             var ticketDetails = _mapper.Map<Support_TicketsDetails>(ticket);
-            ticketDetails.Attachments = await Files.DownloadFiles(ticket.SNo);
+            ticketDetails.Attachments = await Files.GetFilesList(ticket.SNo);
 
             return Ok(ticketDetails);
         }

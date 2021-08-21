@@ -72,25 +72,28 @@ export class TicketsViewerComponent implements OnInit {
   /* --------------------------- Download Attachment -------------------------- */
   downloadTicketAttachment(attachment: FileModel): void {
     console.log('attachment', attachment);
+    window.open(attachment.url, null);
+    window.open(attachment.url, '_blank');
+    window.location.href = attachment.url;
     this.ticketService.downloadTicketAttachment(this.ticket.sNo, attachment.fileName).subscribe(result => {
       // console.log('file result', result);
       // download(result, attachment.fileName, attachment.type);
     });
 
-    this.ticketService.downloadTicketAttachment2(this.ticket.sNo, attachment.fileName).subscribe(blob => {
-      console.log('file result', blob);
-      const str = 'hello world', arr = new Uint8Array(str.length);
-      // tslint:disable-next-line:typedef
-      str.split('').forEach(function(a, b) {
-        arr[b] = a.charCodeAt();
-      });
+    // this.ticketService.downloadTicketAttachment2(this.ticket.sNo, attachment.fileName).subscribe(blob => {
+    //   console.log('file result', blob);
+    //   const str = 'hello world', arr = new Uint8Array(str.length);
+    //   // tslint:disable-next-line:typedef
+    //   str.split('').forEach(function(a, b) {
+    //     arr[b] = a.charCodeAt();
+    //   });
 
-      console.log(arr);
-      download(arr, attachment.fileName);
+    //   console.log(arr);
+    //   download(arr, attachment.fileName);
 
-      // const file = new Blob([blob], { type: 'text/plain' });
-      // saveAs(file, attachment.fileName);
-    });
+    //   // const file = new Blob([blob], { type: 'text/plain' });
+    //   // saveAs(file, attachment.fileName);
+    // });
   }
 
   /* ---------------------------- Delete Attachment --------------------------- */
