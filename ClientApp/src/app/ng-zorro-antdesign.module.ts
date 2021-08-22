@@ -18,6 +18,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzCommentModule } from 'ng-zorro-antd/comment';
 
 // Import what you need. RECOMMENDED. ✔️
 import {
@@ -59,7 +60,8 @@ const icons: IconDefinition[] =
     NzNotificationModule,
     NzAlertModule,
     NzDescriptionsModule,
-    NzBadgeModule
+    NzBadgeModule,
+    NzCommentModule
   ],
   imports: [
     CommonModule,

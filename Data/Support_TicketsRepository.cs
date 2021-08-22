@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace Oasis.TechnicalSupport.Web.Data
 {
+    /* -------------------------------------------------------------------------- */
+    /*                         Support_Tickets Repository                         */
+    /* -------------------------------------------------------------------------- */
     public class Support_TicketsRepository : ISupport_TicketsRepository
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -26,7 +29,7 @@ namespace Oasis.TechnicalSupport.Web.Data
             _mapper = mapper;
         }
 
-        // Generate Ticket No
+        /* --------------------------- Generate Ticket No --------------------------- */
         public async Task<int> GenerateTicketNo(int clientId)
         {
             var maxTicketNo = await _unitOfWork.context.VWSupport_Tickets
@@ -43,7 +46,7 @@ namespace Oasis.TechnicalSupport.Web.Data
             return maxTicketNo;
         }
 
-        // Add New Ticket
+        /* ----------------------------- Add New Ticket ----------------------------- */
         public async Task<Support_TicketsToList> AddTicket(Support_TicketsToRegister support_TicketsToRegister)
         {
             var currentUser = await _authRepository.GetCurrentUser();
@@ -82,13 +85,41 @@ namespace Oasis.TechnicalSupport.Web.Data
             return ticketToReturn;
         }
 
-        // Get Ticket By ID
+        /* --------------------------- Add Ticket Comment --------------------------- */
+        public async Task<Support_Tickets_Note> AddTicketComment(int ticketID, string comment)
+        {
+            var currentUser = await _authRepository.GetCurrentUser();
+
+            var support_Tickets_Notes = new Support_Tickets_Note
+            {
+                TicketNo = ticketID,
+                Notes = comment,
+                OasisComment = 1,
+                SavedUser = currentUser.FullNameEn,
+                SavedDate = DateTime.Now
+            };
+
+            await _unitOfWork.context.Support_Tickets_Notes.AddAsync(support_Tickets_Notes);
+
+            _unitOfWork.BeginTransaction();
+
+            await _unitOfWork.SaveAll();
+
+            await _unitOfWork.Commit();
+
+            var ticketToReturn = support_Tickets_Notes;
+
+            return ticketToReturn;
+        }
+
+
+        /* ---------------------------- Get Ticket By ID ---------------------------- */
         public async Task<Support_TicketsToList> GetTicketById(int id)
         {
             return await _unitOfWork.context.VWSupport_Tickets.Where(s => s.SNo == id).FirstOrDefaultAsync();
         }
 
-        // Get Active Tickets
+        /* --------------------------- Get Active Tickets --------------------------- */
         public Task<List<Support_TicketsActiveTickets>> GetActiveTickets()
         {
             return _unitOfWork.context.VWSupport_Tickets
@@ -113,7 +144,7 @@ namespace Oasis.TechnicalSupport.Web.Data
         }
 
 
-        // Get Tickets Status
+        /* --------------------------- Get Tickets Status --------------------------- */
         public Task<List<Support_TicketsActiveTicketsStatus>> GetTicketsStatus()
         {
 
@@ -128,7 +159,7 @@ namespace Oasis.TechnicalSupport.Web.Data
                   .ToListAsync();
         }
 
-        // Get Active Tickets Status
+        /* ------------------------ Get Active Tickets Status ----------------------- */
         public Task<List<Support_TicketsActiveTicketsStatus>> GetActiveTicketsStatus()
         {
             return _unitOfWork.context.VWSupport_Tickets
@@ -150,17 +181,17 @@ namespace Oasis.TechnicalSupport.Web.Data
                 .ToListAsync();
         }
 
-        // Get Tickets
+        /* ------------------------------- Get Tickets ------------------------------ */
         public async Task<PagedList<Support_TicketsToList>> GetTickets(Support_TicketsParameters support_TicketsParameters)
         {
             var tickets = _unitOfWork.context.VWSupport_Tickets
                 .OrderBy(t => t.TicketNo)
                 .AsQueryable();
 
-            // Filtering
+            /* -------------------------------- Filtering ------------------------------- */
             tickets = tickets.ApplyFiltering(support_TicketsParameters);
 
-            // Sorting
+            /* --------------------------------- Sorting -------------------------------- */
             var columnsMap = new Dictionary<string, Expression<Func<Support_TicketsToList, object>>>()
             {
                 ["sNo"] = p => p.SNo,
@@ -193,7 +224,7 @@ namespace Oasis.TechnicalSupport.Web.Data
             return await PagedList<Support_TicketsToList>.ToPagedListAsync(tickets, support_TicketsParameters.PageNumber, support_TicketsParameters.PageSize);
         }
 
-        // Get Ticket Priorities
+        /* -------------------------- Get Ticket Priorities ------------------------- */
         public async Task<List<KeyValuePairs>> GetTicketPrioritiesList()
         {
             var ticketPrioritiesList = new List<KeyValuePairs>
@@ -206,7 +237,7 @@ namespace Oasis.TechnicalSupport.Web.Data
             return await Task.Run(() => ticketPrioritiesList);
         }
 
-        // Get Ticket Types List
+        /* -------------------------- Get Ticket Types List ------------------------- */
         public async Task<List<KeyValuePairs>> GetTicketTypesList()
         {
             var ticketTypesList = new List<KeyValuePairs>
@@ -219,19 +250,19 @@ namespace Oasis.TechnicalSupport.Web.Data
             return await Task.Run(() => ticketTypesList);
         }
 
-        // Get Ticket Modules List
+        /* ------------------------- Get Ticket Modules List ------------------------ */
         public async Task<List<SystemModule>> GetTicketModulesList()
         {
             return await _unitOfWork.context.SystemsModules.ToListAsync(); ;
         }
 
-        // Get Ticket Client Modules List
+        /* --------------------- Get Ticket Client Modules List --------------------- */
         public async Task<List<ClientModule>> GetTicketClientModulesList(int clientID)
         {
             return await _unitOfWork.context.ClientsModules.Where(c => c.ClientID == clientID).ToListAsync(); ;
         }
 
-        // Get Ticket Status List
+        /* ------------------------- Get Ticket Status List ------------------------- */
         public async Task<List<KeyValuePairs>> GetTicketStatusList()
         {
             var ticketStatusList = new List<KeyValuePairs>

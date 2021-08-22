@@ -20,16 +20,25 @@ export class TicketService {
   /* ------------------------------- Add Ticket ------------------------------- */
   public addTicket(ticketFormData: FormData): Observable<any> {
     return this.http.post(this.apiUrl, ticketFormData);
- }
+  }
+
+  /* --------------------------- Add Ticket Comment --------------------------- */
+  addTicketComment(ticketID: number, comment: string): Observable<any> {
+    const params = new HttpParams()
+      .set('ticketID', ticketID.toString())
+      .set('comment', comment);
+
+    return this.http.post(this.apiUrl + 'AddTicketComment/', { params });
+  }
 
   /* ----------------------------- Get All Tickets ---------------------------- */
   getTickets(ticketParams): Observable<any> {
-    return this.http.get(this.apiUrl + 'ticketslist' ,  { observe: 'response', params: ticketParams});
+    return this.http.get(this.apiUrl + 'ticketslist', { observe: 'response', params: ticketParams });
   }
 
   /* ---------------------------- Get Ticket By Id ---------------------------- */
   getTicketByID(ticketID: number): Observable<any> {
-    return this.http.get(this.apiUrl +  ticketID);
+    return this.http.get(this.apiUrl + ticketID);
   }
 
   /* ---------------------- Get Tickets Modules By Client --------------------- */
@@ -67,23 +76,25 @@ export class TicketService {
     return this.http.get(this.apiUrl + 'tickettypeslist');
   }
 
-   /* ----------------------- Get Ticket Priorities List ----------------------- */
-   getTicketPrioritiesList(): Observable<any> {
+  /* ----------------------- Get Ticket Priorities List ----------------------- */
+  getTicketPrioritiesList(): Observable<any> {
     return this.http.get(this.apiUrl + 'ticketprioritieslist');
   }
 
+  /* ----------------------------- Download Ticket ---------------------------- */
   downloadTicketAttachment(ticketID: number, filename: string): Observable<any> {
     const params = new HttpParams()
-   .set('ticketID', ticketID.toString())
-   .set('filename', filename);
+      .set('ticketID', ticketID.toString())
+      .set('filename', filename);
 
     return this.http.get(this.apiUrl + 'ticketattachment/', { responseType: 'arraybuffer', params });
   }
 
+  /* ----------------------------- Download Ticket ---------------------------- */
   downloadTicketAttachment2(ticketID: number, filename: string): Observable<any> {
     const params = new HttpParams()
-   .set('ticketID', ticketID.toString())
-   .set('filename', filename);
+      .set('ticketID', ticketID.toString())
+      .set('filename', filename);
 
     return this.http.get(this.apiUrl + 'ticketattachment/', { responseType: 'arraybuffer', params });
   }

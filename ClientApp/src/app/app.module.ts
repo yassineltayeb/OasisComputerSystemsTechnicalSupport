@@ -16,6 +16,7 @@ import { ChartsModule } from 'ng2-charts';
 import { TicketsListComponent } from './components/tickets/tickets-list/tickets-list.component';
 import { TicketsNewComponent } from './components/tickets/tickets-new/tickets-new.component';
 import { TicketsViewerComponent } from './components/tickets/tickets-viewer/tickets-viewer.component';
+import { TicketsFollowUpComponent } from './components/tickets/tickets-follow-up/tickets-follow-up.component';
 
 // tslint:disable-next-line:typedef
 export function tokenGetter() {
@@ -32,7 +33,8 @@ export function tokenGetter() {
     SidebarComponent,
     TicketsListComponent,
     TicketsNewComponent,
-    TicketsViewerComponent
+    TicketsViewerComponent,
+    TicketsFollowUpComponent
   ],
   imports: [
     BrowserModule,

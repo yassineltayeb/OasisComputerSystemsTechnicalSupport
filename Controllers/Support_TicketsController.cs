@@ -45,6 +45,16 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             return Ok(ticket);
         }
 
+        /* --------------------------- Add Ticket Comment --------------------------- */
+        [HttpPost("AddTicketComment")]
+        public async Task<IActionResult> AddTicketComment(int ticketID, string comment)
+        {
+
+            var ticketComment = await support_TicketsRepository.AddTicketComment(ticketID, comment);
+
+            return Ok(ticketComment);
+        }
+
         /* ---------------------------- Get Ticket By Id ---------------------------- */
         [HttpGet("{ticketID}")]
         public async Task<IActionResult> GetTicketById(int ticketID)
