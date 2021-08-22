@@ -39,20 +39,39 @@ namespace Oasis.TechnicalSupport.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTicket([FromForm] Support_TicketsToRegister ticketToAdd)
         {
-
             var ticket = await support_TicketsRepository.AddTicket(ticketToAdd);
 
             return Ok(ticket);
         }
 
         /* --------------------------- Add Ticket Comment --------------------------- */
-        [HttpPost("AddTicketComment")]
+        [HttpPost("addticketcomment")]
         public async Task<IActionResult> AddTicketComment(int ticketID, string comment)
         {
-
             var ticketComment = await support_TicketsRepository.AddTicketComment(ticketID, comment);
 
             return Ok(ticketComment);
+        }
+
+         /* ---------------------------- Get Tickets List ---------------------------- */
+        [HttpGet("ticketslist")]
+        public async Task<IActionResult> GetTicketsList([FromQuery] Support_TicketsParameters support_TicketsParameters)
+        {
+            var tickets = await support_TicketsRepository.GetTickets(support_TicketsParameters);
+
+            var metadata = new
+            {
+                totalCount = tickets.TotalCount,
+                pageSize = tickets.PageSize,
+                currentPage = tickets.CurrentPage,
+                totalPages = tickets.TotalPages,
+                hasNext = tickets.HasNext,
+                hasPrevious = tickets.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            return Ok(tickets);
         }
 
         /* ---------------------------- Get Ticket By Id ---------------------------- */
@@ -64,6 +83,15 @@ namespace Oasis.TechnicalSupport.Web.Controllers
             ticketDetails.Attachments = await Files.GetFilesList(ticket.SNo);
 
             return Ok(ticketDetails);
+        }
+
+         /* ---------------------------- Get Ticket Notes ---------------------------- */
+        [HttpGet("getticketnotes/{ticketID}")]
+        public async Task<IActionResult> GetTicketNotes(int ticketID)
+        {
+            var ticketNotes = await support_TicketsRepository.GetTicketNotes(ticketID);
+
+            return Ok(ticketNotes);
         }
 
         /* --------------------------- Get Active Tickets --------------------------- */
@@ -92,28 +120,7 @@ namespace Oasis.TechnicalSupport.Web.Controllers
 
             return Ok(activeTickets);
         }
-
-        /* ---------------------------- Get Tickets List ---------------------------- */
-        [HttpGet("ticketslist")]
-        public async Task<IActionResult> GetTicketsList([FromQuery] Support_TicketsParameters support_TicketsParameters)
-        {
-            var tickets = await support_TicketsRepository.GetTickets(support_TicketsParameters);
-
-            var metadata = new
-            {
-                totalCount = tickets.TotalCount,
-                pageSize = tickets.PageSize,
-                currentPage = tickets.CurrentPage,
-                totalPages = tickets.TotalPages,
-                hasNext = tickets.HasNext,
-                hasPrevious = tickets.HasPrevious
-            };
-
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-
-            return Ok(tickets);
-        }
-
+       
         /* ----------------------- Get Ticket Priorities List ----------------------- */
         [HttpGet("ticketprioritieslist")]
         public async Task<IActionResult> GetTicketPrioritiesList()

@@ -1,18 +1,15 @@
-<div nz-row [nzGutter]="24">
-  <div nz-col>
-    <nz-comment nzAuthor="Han Solo" [nzDatetime]="time">
-      <nz-avatar
-        nz-comment-avatar
-        nzIcon="user"
-        nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-      ></nz-avatar>
-      <nz-comment-content>
-        <p>
-          We supply a series of design principles, practical patterns and high
-          quality design resources (Sketch and Axure), to help people create
-          their product prototypes beautifully and efficiently.
-        </p>
-      </nz-comment-content>
-    </nz-comment>
-  </div>
-</div>
+<ng-container class="ticket-notes" *ngFor="let ticketNote of ticketNotes">
+  <nz-comment
+    nzAuthor="{{ ticketNote.savedUser }}"
+    nzDatetime="{{ ticketNote.savedDate | date: 'short' }}"
+  >
+    <nz-avatar
+      nz-comment-avatar
+      nzIcon="user"
+      nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+    ></nz-avatar>
+    <nz-comment-content>
+      <p>{{ ticketNote.notes }}</p>
+    </nz-comment-content>
+  </nz-comment>
+</ng-container>

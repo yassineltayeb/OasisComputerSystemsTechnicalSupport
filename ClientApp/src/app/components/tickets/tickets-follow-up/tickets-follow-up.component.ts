@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { formatDistance } from 'date-fns';
+import { Component, Input, OnInit } from '@angular/core';
+import { TicketNotes } from 'src/app/models/TicketNotes';
+import { TicketService } from 'src/app/services/ticket/ticket.service';
 
 @Component({
   selector: 'app-tickets-follow-up',
@@ -10,12 +11,41 @@ import { formatDistance } from 'date-fns';
 /* -------------------------------------------------------------------------- */
 /*                              Tickets Follow Up                             */
 /* -------------------------------------------------------------------------- */
+
 export class TicketsFollowUpComponent implements OnInit {
 
-  time = formatDistance(new Date(), new Date());
+  /* -------------------------------------------------------------------------- */
+  /*                                  Variables                                 */
+  /* -------------------------------------------------------------------------- */
 
-  constructor() { }
+  @Input() ticketId?: number;
+  ticketNotes: TicketNotes[];
 
-  ngOnInit(): void { }
+  /* -------------------------------------------------------------------------- */
+  /*                                 Constructor                                */
+  /* -------------------------------------------------------------------------- */
+
+  constructor(private ticketService: TicketService) { }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  ngOnInit                                  */
+  /* -------------------------------------------------------------------------- */
+
+  ngOnInit(): void {
+    console.log('follow up', this.ticketId);
+    this.getTicketNotes(this.ticketId);
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  Functions                                 */
+  /* -------------------------------------------------------------------------- */
+
+  /* ---------------------------- Get Ticket Notes ---------------------------- */
+  getTicketNotes(ticketID: number): void {
+    this.ticketService.getTicketNotes(ticketID).subscribe(result => {
+      this.ticketNotes = result;
+      console.log('Ticket Notes', this.ticketNotes);
+    });
+  }
 
 }

@@ -25,5 +25,4 @@ export interface TicketDetails {
   approvedBy: string;
   approvedOn: Date;
   attachments: FileModel[];
-
 }

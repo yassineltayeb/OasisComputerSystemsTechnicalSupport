@@ -54,8 +54,6 @@ export class TicketsViewerComponent implements OnInit {
   /* ---------------------------- Get Ticket By ID ---------------------------- */
   getTicketByID(ticketID: number): void {
     this.ticketService.getTicketByID(ticketID).subscribe((result: TicketDetails) => {
-      console.log('result', result
-      );
       this.ticket = result;
     });
   }

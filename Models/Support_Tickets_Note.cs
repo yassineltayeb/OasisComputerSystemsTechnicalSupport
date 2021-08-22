@@ -20,4 +20,16 @@ namespace Oasis.TechnicalSupport.Web.Models
 		public string SavedUser { get; set; }
 		public int OasisComment { get; set; }
 	}
+
+	public class Support_Tickets_NoteToList
+    {
+		[Key]
+		public long SNo { get; set; }
+		public int TicketNo { get; set; }
+        public string Notes { get; set; }
+		public bool IsRead { get; set; }
+		public DateTime SavedDate { get; set; }
+		public string SavedUser { get; set; }
+		public int OasisComment { get; set; }
+	}
 }

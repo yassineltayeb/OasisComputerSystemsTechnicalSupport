@@ -12,6 +12,7 @@ namespace Oasis.TechnicalSupport.Web.Repositories
         Task<Support_Tickets_Note> AddTicketComment(int ticketID, string comment);
         Task<Support_TicketsToList> GetTicketById(int id);
         Task<PagedList<Support_TicketsToList>> GetTickets(Support_TicketsParameters support_TicketsParameters);
+        Task<List<Support_Tickets_NoteToList>> GetTicketNotes(int ticketID);
         Task<List<Support_TicketsActiveTickets>> GetActiveTickets();
         Task<List<Support_TicketsActiveTicketsStatus>> GetTicketsStatus();
         Task<List<Support_TicketsActiveTicketsStatus>> GetActiveTicketsStatus();

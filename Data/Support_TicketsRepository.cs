@@ -112,11 +112,18 @@ namespace Oasis.TechnicalSupport.Web.Data
             return ticketToReturn;
         }
 
-
         /* ---------------------------- Get Ticket By ID ---------------------------- */
         public async Task<Support_TicketsToList> GetTicketById(int id)
         {
             return await _unitOfWork.context.VWSupport_Tickets.Where(s => s.SNo == id).FirstOrDefaultAsync();
+        }
+
+         /* ---------------------------- Get Ticket Notes ---------------------------- */
+        public async Task<List<Support_Tickets_NoteToList>> GetTicketNotes(int ticketID)
+        {
+            var ticketNotes = await _unitOfWork.context.Support_Tickets_Notes.Where(s => s.TicketNo == ticketID).ToListAsync();
+            
+            return _mapper.Map<List<Support_Tickets_NoteToList>>(ticketNotes);
         }
 
         /* --------------------------- Get Active Tickets --------------------------- */

@@ -41,6 +41,11 @@ export class TicketService {
     return this.http.get(this.apiUrl + ticketID);
   }
 
+  /* ---------------------------- Get Ticket Notes ---------------------------- */
+  getTicketNotes(ticketID: number): Observable<any> {
+    return this.http.get(this.apiUrl + 'getticketnotes/' + ticketID);
+  }
+
   /* ---------------------- Get Tickets Modules By Client --------------------- */
   getTicketsClientModules(clientId): Observable<any> {
     return this.http.get(this.apiUrl + 'ticketclientmoduleslist/' + clientId);
